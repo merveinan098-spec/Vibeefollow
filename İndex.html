@@ -1,0 +1,1976 @@
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0b0c10" />
+  <title>VibeFollow — Snapchat Kamera & Güzellik Stüdyosu</title>
+  <style>
+    :root {
+      --bg: #0b0c10;
+      --surface: #13151c;
+      --surface-2: #1a1d27;
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f3f4f6;
+      --muted: #9ca3af;
+      --accent: #ff4d8d;
+      --accent-2: #7c5cff;
+      --ok: #22c55e;
+      --warn: #f59e0b;
+      --danger: #ef4444;
+      --beauty-strength: 0.7;
+    }
+
+    body.plan-weekly {
+      --accent: #38bdf8;
+      --accent-2: #6366f1;
+    }
+
+    body.plan-monthly {
+      --accent: #ff4d8d;
+      --accent-2: #7c5cff;
+    }
+
+    body.plan-yearly {
+      --accent: #f59e0b;
+      --accent-2: #ec4899;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 480px;
+      min-height: 100vh;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+    }
+
+    header.topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(11, 12, 16, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: -0.3px;
+    }
+
+    .brand-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    }
+
+    .mode-pill {
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .mode-pill.live {
+      color: #86efac;
+      border-color: rgba(34, 197, 94, 0.35);
+      background: rgba(34, 197, 94, 0.12);
+    }
+
+    .plan-badge {
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-weight: 700;
+      background: linear-gradient(135deg, rgba(255, 77, 141, 0.2), rgba(124, 92, 255, 0.22));
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #fff;
+    }
+
+    .btn {
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border: none;
+      color: #fff;
+    }
+
+    .btn-sm {
+      padding: 6px 10px;
+      font-size: 12px;
+      border-radius: 8px;
+    }
+
+    main.content {
+      flex: 1;
+      padding: 14px 14px 86px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin: 0 0 8px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.45;
+    }
+
+    .input, .textarea, .select {
+      width: 100%;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 13.5px;
+      margin-bottom: 10px;
+      outline: none;
+    }
+
+    .input:focus, .textarea:focus, .select:focus {
+      border-color: var(--accent-2);
+    }
+
+    .row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .chips {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .chip {
+      padding: 6px 11px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .chip.active {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .snap-stage {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #07080c;
+      border: 1px solid var(--border);
+      min-height: 270px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .snap-media {
+      width: 100%;
+      height: 310px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .snap-media.mirror {
+      transform: scaleX(-1);
+    }
+
+    .snap-overlay-top {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .snap-tag {
+      background: rgba(11, 12, 16, 0.72);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .snap-glow-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      mix-blend-mode: screen;
+    }
+
+    .shutter-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 12px 6px 4px 6px;
+    }
+
+    .shutter-btn {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: 4px solid #fff;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #fff;
+      font-weight: 800;
+      font-size: 11px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+    }
+
+    .shutter-btn.recording {
+      border-color: #fca5a5;
+      background: #ef4444;
+    }
+
+    .fx-normal { filter: none; }
+    .fx-beauty-soft { filter: brightness(1.07) contrast(0.95) saturate(1.12); }
+    .fx-beauty-rosy { filter: brightness(1.08) contrast(0.98) saturate(1.32) hue-rotate(-6deg); }
+    .fx-beauty-porcelain { filter: brightness(1.13) contrast(0.92) saturate(0.96); }
+    .fx-beauty-golden { filter: brightness(1.06) contrast(1.04) sepia(0.28) saturate(1.35); }
+    .fx-beauty-cool { filter: brightness(1.05) contrast(1.03) saturate(1.08) hue-rotate(12deg); }
+    .fx-vivid { filter: contrast(1.22) saturate(1.45); }
+    .fx-warm { filter: sepia(0.35) saturate(1.3) hue-rotate(-8deg); }
+    .fx-neon { filter: contrast(1.25) saturate(1.7) hue-rotate(25deg); }
+    .fx-mono { filter: grayscale(1) contrast(1.15); }
+
+    .stories-strip {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+
+    .stories-strip::-webkit-scrollbar {
+      display: none;
+    }
+
+    .story-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      min-width: 68px;
+      cursor: pointer;
+    }
+
+    .story-ring {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      padding: 2px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .story-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: var(--surface-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 15px;
+      border: 2px solid var(--bg);
+      overflow: hidden;
+    }
+
+    .story-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .story-name {
+      font-size: 11px;
+      color: var(--muted);
+      max-width: 68px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .story-viewer {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+
+    .preview-media {
+      width: 100%;
+      max-height: 260px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #090a0e;
+      display: block;
+    }
+
+    .post-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .post-head {
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .avatar-sm {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .post-media {
+      background: linear-gradient(135deg, rgba(255, 77, 141, 0.14), rgba(124, 92, 255, 0.16));
+      padding: 20px 18px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .post-actions {
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .reel-box {
+      background: linear-gradient(180deg, #1b182b 0%, #10121a 100%);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 35%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transition: width 0.25s linear;
+    }
+
+    .swipe-card {
+      background: linear-gradient(160deg, rgba(255, 77, 141, 0.14), rgba(19, 21, 28, 0.98) 45%);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .msg-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 260px;
+      overflow-y: auto;
+      padding: 6px 0;
+    }
+
+    .msg-bubble {
+      padding: 9px 12px;
+      border-radius: 12px;
+      font-size: 13px;
+      max-width: 82%;
+      line-height: 1.4;
+    }
+
+    .msg-me {
+      align-self: flex-end;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #fff;
+    }
+
+    .msg-other {
+      align-self: flex-start;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+    }
+
+    .list-item {
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    nav.bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 480px;
+      background: rgba(11, 12, 16, 0.95);
+      backdrop-filter: blur(14px);
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      padding: 8px 6px 10px 6px;
+      z-index: 30;
+    }
+
+    .nav-btn {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      cursor: pointer;
+      padding: 4px 2px;
+      border-radius: 10px;
+    }
+
+    .nav-btn.active {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .toast {
+      position: fixed;
+      top: 64px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 9px 14px;
+      border-radius: 12px;
+      font-size: 12.5px;
+      font-weight: 600;
+      z-index: 60;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+      display: none;
+    }
+
+    .badge-uid {
+      font-family: monospace;
+      font-size: 11px;
+      background: var(--surface-2);
+      padding: 3px 7px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      color: #cbd5e1;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <span>VibeFollow</span>
+      </div>
+      <div class="row">
+        <span id="planBadge" class="plan-badge">Aylık • 150 TL</span>
+        <span id="connBadge" class="mode-pill">Firebase Hazır</span>
+        <button class="btn btn-sm" onclick="openAuthModal()">Hesap</button>
+      </div>
+    </header>
+
+    <div id="toast" class="toast"></div>
+
+    <main id="mainContent" class="content"></main>
+
+    <nav class="bottom-nav">
+      <button class="nav-btn active" data-tab="feed" onclick="setTab('feed')">
+        <span>🏠</span>
+        <span>Akış</span>
+      </button>
+      <button class="nav-btn" data-tab="reels" onclick="setTab('reels')">
+        <span>🎬</span>
+        <span>Reels</span>
+      </button>
+      <button class="nav-btn" data-tab="discover" onclick="setTab('discover')">
+        <span>✨</span>
+        <span>Keşfet</span>
+      </button>
+      <button class="nav-btn" data-tab="chat" onclick="setTab('chat')">
+        <span>💬</span>
+        <span>Mesaj</span>
+      </button>
+      <button class="nav-btn" data-tab="profile" onclick="setTab('profile')">
+        <span>👤</span>
+        <span>Profil</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Firebase Modüler SDK (vibefollow-d1a36 bağlı) -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signInWithEmailAndPassword,
+      createUserWithEmailAndPassword,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import {
+      getFirestore,
+      doc,
+      setDoc
+    } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    const FIREBASE_CONFIG = {
+      apiKey: "AIzaSyApOi5zD-sQeoB5Gn_jC3YQeEKdNaiIZlo",
+      authDomain: "vibefollow-d1a36.firebaseapp.com",
+      projectId: "vibefollow-d1a36",
+      storageBucket: "vibefollow-d1a36.firebasestorage.app",
+      messagingSenderId: "121954401252",
+      appId: "1:121954401252:web:191deb4a405f7b5eb625f1",
+      measurementId: "G-3EYE9PHYLE"
+    };
+
+    const hasFirebaseConfig = Boolean(FIREBASE_CONFIG.apiKey && FIREBASE_CONFIG.projectId);
+
+    window.__VF_FIREBASE__ = {
+      enabled: hasFirebaseConfig,
+      projectId: FIREBASE_CONFIG.projectId || "vibefollow-d1a36",
+      app: null,
+      auth: null,
+      db: null,
+      fns: {
+        onAuthStateChanged,
+        signInWithEmailAndPassword,
+        createUserWithEmailAndPassword,
+        signOut,
+        doc,
+        setDoc
+      }
+    };
+
+    if (hasFirebaseConfig) {
+      try {
+        const app = initializeApp(FIREBASE_CONFIG);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        window.__VF_FIREBASE__.app = app;
+        window.__VF_FIREBASE__.auth = auth;
+        window.__VF_FIREBASE__.db = db;
+        window.dispatchEvent(new Event("vf-firebase-ready"));
+      } catch (err) {
+        console.warn("Firebase başlatılamadı, önizleme modu aktif:", err);
+      }
+    }
+  </script>
+
+  <script>
+    const STORAGE_KEY = "vibefollow_live_preview_v5";
+
+    const BEAUTY_EFFECTS = [
+      { id: "fx-beauty-soft", label: "✨ Pürüzsüz Cilt", glow: "rgba(255, 228, 240, 0.14)" },
+      { id: "fx-beauty-rosy", label: "🌸 Pembe Aydınlık", glow: "rgba(255, 110, 165, 0.16)" },
+      { id: "fx-beauty-porcelain", label: "🤍 Porselen", glow: "rgba(255, 255, 255, 0.16)" },
+      { id: "fx-beauty-golden", label: "☀️ Altın Saat", glow: "rgba(251, 191, 36, 0.16)" },
+      { id: "fx-beauty-cool", label: "❄️ Soğuk Işık", glow: "rgba(125, 211, 252, 0.14)" },
+      { id: "fx-normal", label: "Doğal", glow: "transparent" }
+    ];
+
+    const DEFAULT_STATE = {
+      activeTab: "feed",
+      authModalOpen: false,
+      snapStudioOpen: true,
+      cameraFacing: "user",
+      beautyEffect: "fx-beauty-soft",
+      beautyIntensity: 75,
+      capturedPhoto: "",
+      capturedVideoUrl: "",
+      activeStoryId: null,
+      storyDraftPhoto: "",
+      storyDraftEffect: "fx-beauty-soft",
+      reelDraftTitle: "",
+      reelDraftCaption: "",
+      reelDraftVideoUrl: "",
+      reelDraftEffect: "fx-beauty-soft",
+      reelDraftSpeed: "1x",
+      discoverCityFilter: "Tümü",
+      discoverMaxKm: 120,
+      passportMode: false,
+      currentUid: "uid_merve_01",
+      currentUser: {
+        uid: "uid_merve_01",
+        name: "Merve Güral",
+        handle: "@merve.vf",
+        bio: "VibeFollow kurucusu • Gerçek bağlantı & üretim odaklı",
+        city: "Silivri",
+        distanceKm: 0,
+        plan: "Plus Aylık (150 TL)"
+      },
+      users: [
+        {
+          uid: "uid_merve_01",
+          name: "Merve Güral",
+          handle: "@merve.vf",
+          bio: "VibeFollow kurucusu • Gerçek bağlantı & üretim odaklı",
+          city: "Silivri",
+          distanceKm: 0,
+          plan: "Plus Aylık (150 TL)"
+        },
+        {
+          uid: "uid_selin_02",
+          name: "Selin Kaya",
+          handle: "@selinkaya",
+          bio: "Akşam yürüyüşleri, kahve ve kısa film notları",
+          city: "İstanbul",
+          distanceKm: 42,
+          plan: "Plus Haftalık (50 TL)"
+        },
+        {
+          uid: "uid_emre_03",
+          name: "Emre Demir",
+          handle: "@emredmr",
+          bio: "Mobil arayüz, sade tasarım ve gece üretimi",
+          city: "Tekirdağ",
+          distanceKm: 68,
+          plan: "Plus Yıllık (900 TL)"
+        },
+        {
+          uid: "uid_deniz_04",
+          name: "Deniz Yılmaz",
+          handle: "@deniz.ylmz",
+          bio: "Sahil rotaları, müzik listeleri ve samimi sohbetler",
+          city: "Silivri",
+          distanceKm: 6,
+          plan: "Ücretsiz"
+        }
+      ],
+      stories: [
+        {
+          id: "st1",
+          authorUid: "uid_merve_01",
+          authorName: "Merve",
+          text: "VibeFollow canlı Firebase bağlantısı aktif!",
+          photoUrl: "",
+          effect: "fx-beauty-soft"
+        },
+        {
+          id: "st2",
+          authorUid: "uid_selin_02",
+          authorName: "Selin",
+          text: "Sahil yürüyüşü sonrası ilk kahve molası ☕",
+          photoUrl: "",
+          effect: "fx-beauty-rosy"
+        },
+        {
+          id: "st3",
+          authorUid: "uid_emre_03",
+          authorName: "Emre",
+          text: "Yeni efekt ve video akışları test ediliyor.",
+          photoUrl: "",
+          effect: "fx-beauty-golden"
+        }
+      ],
+      posts: [
+        {
+          id: "p1",
+          authorUid: "uid_selin_02",
+          authorName: "Selin Kaya",
+          handle: "@selinkaya",
+          text: "Gerçek insanlarla samimi sohbetlerin başladığı sade bir alan. Bugün hangi şehirden bağlanıyorsun?",
+          likes: 18,
+          likedByMe: false,
+          savedByMe: false,
+          comments: ["Harika bir atmosfer!", "Ben de buradayım."]
+        },
+        {
+          id: "p2",
+          authorUid: "uid_emre_03",
+          authorName: "Emre Demir",
+          handle: "@emredmr",
+          text: "Kısa videolar, konum keşfi ve doğrudan mesajlaşma tek yerde toplandı.",
+          likes: 24,
+          likedByMe: true,
+          savedByMe: true,
+          comments: ["Akış çok akıcı görünüyor."]
+        }
+      ],
+      reels: [
+        {
+          id: "r1",
+          authorUid: "uid_selin_02",
+          authorName: "Selin Kaya",
+          title: "Gün Batımında Kısa Not",
+          caption: "Gürültüsüz, net ve gerçek bir sosyal alan.",
+          videoUrl: "",
+          effect: "fx-beauty-golden",
+          speed: "1x",
+          likes: 42,
+          likedByMe: false,
+          savedByMe: false,
+          comments: ["Çok iyi vibe!"]
+        },
+        {
+          id: "r2",
+          authorUid: "uid_emre_03",
+          authorName: "Emre Demir",
+          title: "Hızlı Keşfet & Eşleşme",
+          caption: "Beğen, eşleş ve anında sohbete geç.",
+          videoUrl: "",
+          effect: "fx-beauty-rosy",
+          speed: "1.2x",
+          likes: 31,
+          likedByMe: false,
+          savedByMe: false,
+          comments: []
+        }
+      ],
+      discoverIndex: 0,
+      matches: ["uid_selin_02"],
+      following: ["uid_selin_02"],
+      messages: [
+        {
+          id: "m1",
+          senderUid: "uid_selin_02",
+          toUid: "uid_merve_01",
+          text: "Selam Merve! VibeFollow bağlantısı gayet akıcı çalışıyor.",
+          time: "19:05"
+        }
+      ]
+    };
+
+    let state = loadState();
+    let reelIndex = 0;
+    let reelPlaying = true;
+    let reelProgress = 35;
+    let snapStream = null;
+    let mediaRecorder = null;
+    let recordedChunks = [];
+    let isRecordingVideo = false;
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return structuredClone(DEFAULT_STATE);
+        return { ...structuredClone(DEFAULT_STATE), ...JSON.parse(raw) };
+      } catch {
+        return structuredClone(DEFAULT_STATE);
+      }
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch {}
+    }
+
+    function showToast(msg) {
+      const el = document.getElementById("toast");
+      el.textContent = msg;
+      el.style.display = "block";
+      clearTimeout(window.__vfToastTimer);
+      window.__vfToastTimer = setTimeout(() => {
+        el.style.display = "none";
+      }, 2400);
+    }
+
+    function applyPlanTheme() {
+      const body = document.body;
+      const badge = document.getElementById("planBadge");
+      const plan = state.currentUser.plan || "Plus Aylık (150 TL)";
+      body.classList.remove("plan-weekly", "plan-monthly", "plan-yearly");
+
+      if (plan.includes("50 TL")) {
+        body.classList.add("plan-weekly");
+        badge.textContent = "Haftalık • 50 TL";
+      } else if (plan.includes("900 TL")) {
+        body.classList.add("plan-yearly");
+        badge.textContent = "Yıllık • 900 TL";
+      } else if (plan.includes("150 TL")) {
+        body.classList.add("plan-monthly");
+        badge.textContent = "Aylık • 150 TL";
+      } else {
+        badge.textContent = "Ücretsiz";
+      }
+    }
+
+    function updateHeaderBadge() {
+      applyPlanTheme();
+      const badge = document.getElementById("connBadge");
+      const fb = window.__VF_FIREBASE__;
+      if (fb && fb.enabled && fb.auth && fb.auth.currentUser) {
+        badge.textContent = "Canlı Firebase";
+        badge.classList.add("live");
+      } else if (fb && fb.enabled) {
+        badge.textContent = "Firebase Hazır";
+        badge.classList.remove("live");
+      } else {
+        badge.textContent = "Önizleme (uid)";
+        badge.classList.remove("live");
+      }
+    }
+
+    async function syncDocToFirestore(colName, docId, payload) {
+      const fb = window.__VF_FIREBASE__;
+      if (!fb || !fb.enabled || !fb.db || !fb.auth || !fb.auth.currentUser) return;
+      try {
+        const { doc, setDoc } = fb.fns;
+        await setDoc(doc(fb.db, colName, docId), payload, { merge: true });
+      } catch (e) {
+        console.warn("Firestore yazım uyarısı:", e.message);
+      }
+    }
+
+    function stopSnapCamera() {
+      if (mediaRecorder && mediaRecorder.state !== "inactive") {
+        try { mediaRecorder.stop(); } catch {}
+      }
+      mediaRecorder = null;
+      isRecordingVideo = false;
+      if (snapStream) {
+        snapStream.getTracks().forEach((t) => t.stop());
+        snapStream = null;
+      }
+    }
+
+    async function startSnapCamera(facingOverride) {
+      if (facingOverride) state.cameraFacing = facingOverride;
+      stopSnapCamera();
+      state.capturedPhoto = "";
+      state.capturedVideoUrl = "";
+
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        showToast("Bu tarayıcıda kamera desteği bulunmuyor; galeriden fotoğraf veya video seçebilirsin.");
+        render();
+        return;
+      }
+
+      try {
+        snapStream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: state.cameraFacing },
+          audio: true
+        });
+      } catch {
+        try {
+          snapStream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: state.cameraFacing },
+            audio: false
+          });
+        } catch {
+          showToast("Kamera izni verilmedi; galeriden seçim yapabilirsin.");
+          render();
+          return;
+        }
+      }
+
+      render();
+      const vid = document.getElementById("snapLiveVideo");
+      if (vid && snapStream) {
+        vid.srcObject = snapStream;
+        await vid.play().catch(() => {});
+      }
+      showToast(state.cameraFacing === "user" ? "Ön kamera açıldı." : "Arka kamera açıldı.");
+    }
+
+    async function flipSnapCamera() {
+      const nextFacing = state.cameraFacing === "user" ? "environment" : "user";
+      await startSnapCamera(nextFacing);
+    }
+
+    function captureSnapPhoto() {
+      const vid = document.getElementById("snapLiveVideo");
+      if (!vid || !snapStream) {
+        return showToast("Önce kamerayı aç veya fotoğraf seç.");
+      }
+
+      const canvas = document.createElement("canvas");
+      canvas.width = vid.videoWidth || 640;
+      canvas.height = vid.videoHeight || 800;
+      const ctx = canvas.getContext("2d");
+      if (state.cameraFacing === "user") {
+        ctx.translate(canvas.width, 0);
+        ctx.scale(-1, 1);
+      }
+      ctx.drawImage(vid, 0, 0, canvas.width, canvas.height);
+      state.capturedPhoto = canvas.toDataURL("image/jpeg", 0.88);
+      state.capturedVideoUrl = "";
+      state.storyDraftPhoto = state.capturedPhoto;
+      state.storyDraftEffect = state.beautyEffect;
+      stopSnapCamera();
+      saveState();
+      showToast("Fotoğraf güzellik efektiyle çekildi!");
+      render();
+    }
+
+    function toggleSnapVideoRecord() {
+      if (!snapStream) {
+        return showToast("Video kaydetmek için önce kamerayı aç.");
+      }
+
+      if (!isRecordingVideo) {
+        recordedChunks = [];
+        try {
+          mediaRecorder = new MediaRecorder(snapStream);
+        } catch {
+          return showToast("Bu cihazda canlı video kaydı desteklenmiyor; video dosyası seçebilirsin.");
+        }
+        mediaRecorder.ondataavailable = (e) => {
+          if (e.data && e.data.size > 0) recordedChunks.push(e.data);
+        };
+        mediaRecorder.onstop = () => {
+          const blob = new Blob(recordedChunks, { type: "video/webm" });
+          const reader = new FileReader();
+          reader.onload = () => {
+            state.capturedVideoUrl = String(reader.result || "");
+            state.reelDraftVideoUrl = state.capturedVideoUrl;
+            state.reelDraftEffect = state.beautyEffect;
+            stopSnapCamera();
+            saveState();
+            showToast("Kısa video kaydedildi!");
+            render();
+          };
+          reader.readAsDataURL(blob);
+        };
+        mediaRecorder.start();
+        isRecordingVideo = true;
+        showToast("Video kaydı başladı...");
+        render();
+      } else {
+        isRecordingVideo = false;
+        if (mediaRecorder && mediaRecorder.state !== "inactive") {
+          mediaRecorder.stop();
+        }
+      }
+    }
+
+    function sendCapturedToStory() {
+      if (!state.capturedPhoto && !state.capturedVideoUrl) {
+        return showToast("Önce bir çekim yap veya fotoğraf seç.");
+      }
+      const newStory = {
+        id: "st_" + Date.now(),
+        authorUid: state.currentUid,
+        authorName: state.currentUser.name.split(" ")[0] || "Üye",
+        text: "Kamera stüdyosundan paylaşıldı ✨",
+        photoUrl: state.capturedPhoto || "",
+        effect: state.beautyEffect
+      };
+      state.stories.unshift(newStory);
+      state.activeStoryId = newStory.id;
+      state.capturedPhoto = "";
+      state.capturedVideoUrl = "";
+      saveState();
+      syncDocToFirestore("stories", newStory.id, newStory);
+      showToast("Hikâyelerde paylaşıldı!");
+      render();
+    }
+
+    function sendCapturedToReels() {
+      if (!state.capturedVideoUrl && !state.capturedPhoto) {
+        return showToast("Önce kısa video kaydet veya çekim yap.");
+      }
+      const newReel = {
+        id: "reel_" + Date.now(),
+        authorUid: state.currentUid,
+        authorName: state.currentUser.name,
+        title: "Kamera Çekimi",
+        caption: `${state.beautyEffect.replace("fx-beauty-", "").replace("fx-", "")} efekt • %${state.beautyIntensity} yoğunluk`,
+        videoUrl: state.capturedVideoUrl || "",
+        photoUrl: state.capturedPhoto || "",
+        effect: state.beautyEffect,
+        speed: "1x",
+        likes: 1,
+        likedByMe: true,
+        savedByMe: false,
+        comments: []
+      };
+      state.reels.unshift(newReel);
+      reelIndex = 0;
+      state.capturedPhoto = "";
+      state.capturedVideoUrl = "";
+      saveState();
+      syncDocToFirestore("reels", newReel.id, newReel);
+      setTab("reels");
+      showToast("Reels akışında yayınlandı!");
+    }
+
+    function setTab(tab) {
+      stopSnapCamera();
+      state.activeTab = tab;
+      state.authModalOpen = false;
+      saveState();
+      document.querySelectorAll(".nav-btn").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.tab === tab);
+      });
+      render();
+    }
+
+    function openAuthModal() {
+      state.authModalOpen = !state.authModalOpen;
+      render();
+    }
+
+    async function handleRealAuth(mode) {
+      const email = document.getElementById("authEmail")?.value?.trim();
+      const password = document.getElementById("authPass")?.value?.trim();
+      const fb = window.__VF_FIREBASE__;
+
+      if (!fb || !fb.enabled || !fb.auth) {
+        showToast("Firebase web ayarları henüz girilmedi; yerel uid kullanılıyor.");
+        return;
+      }
+      if (!email || !password) {
+        showToast("E-posta ve şifre girin.");
+        return;
+      }
+
+      try {
+        const { signInWithEmailAndPassword, createUserWithEmailAndPassword, doc, setDoc } = fb.fns;
+        const cred = mode === "signup"
+          ? await createUserWithEmailAndPassword(fb.auth, email, password)
+          : await signInWithEmailAndPassword(fb.auth, email, password);
+
+        const uid = cred.user.uid;
+        state.currentUid = uid;
+        state.currentUser.uid = uid;
+        state.currentUser.handle = "@" + email.split("@")[0].replace(/[^a-zA-Z0-9._]/g, "");
+
+        await setDoc(doc(fb.db, "users", uid), {
+          uid,
+          email,
+          name: state.currentUser.name,
+          handle: state.currentUser.handle,
+          city: state.currentUser.city,
+          plan: state.currentUser.plan,
+          updatedAt: new Date().toISOString()
+        }, { merge: true });
+
+        state.authModalOpen = false;
+        saveState();
+        updateHeaderBadge();
+        showToast(mode === "signup" ? "Kayıt tamamlandı (uid aktif)." : "Giriş başarılı (uid aktif).");
+        render();
+      } catch (err) {
+        showToast("Giriş hatası: " + (err.message || "Bilgileri kontrol edin"));
+      }
+    }
+
+    async function handleSignOut() {
+      const fb = window.__VF_FIREBASE__;
+      if (fb && fb.enabled && fb.auth && fb.auth.currentUser) {
+        try {
+          await fb.fns.signOut(fb.auth);
+        } catch {}
+      }
+      state.currentUid = "uid_merve_01";
+      state.currentUser.uid = "uid_merve_01";
+      saveState();
+      updateHeaderBadge();
+      showToast("Önizleme uid oturumuna dönüldü.");
+      render();
+    }
+
+    function switchPreviewUid(uid) {
+      const found = state.users.find((u) => u.uid === uid) || state.currentUser;
+      state.currentUid = found.uid;
+      state.currentUser = { ...found };
+      saveState();
+      showToast("Aktif kullanıcı değiştirildi: " + found.name);
+      render();
+    }
+
+    function onStoryPhotoPicked(event) {
+      const file = event.target?.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        state.storyDraftPhoto = String(reader.result || "");
+        saveState();
+        showToast("Hikâye fotoğrafı yüklendi.");
+        render();
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function setStoryEffect(fx) {
+      state.storyDraftEffect = fx;
+      state.beautyEffect = fx;
+      saveState();
+      render();
+    }
+
+    function addStory() {
+      const inp = document.getElementById("newStoryText");
+      const text = inp?.value?.trim() || (state.storyDraftPhoto ? "Fotoğraflı hikâye" : "");
+      if (!text && !state.storyDraftPhoto) {
+        return showToast("Hikâye metni yaz veya fotoğraf seç.");
+      }
+
+      const newStory = {
+        id: "st_" + Date.now(),
+        authorUid: state.currentUid,
+        authorName: state.currentUser.name.split(" ")[0] || "Üye",
+        text,
+        photoUrl: state.storyDraftPhoto || "",
+        effect: state.storyDraftEffect || "fx-beauty-soft"
+      };
+      state.stories.unshift(newStory);
+      state.activeStoryId = newStory.id;
+      state.storyDraftPhoto = "";
+      if (inp) inp.value = "";
+      saveState();
+      syncDocToFirestore("stories", newStory.id, newStory);
+      showToast("Efektli hikâye eklendi.");
+      render();
+    }
+
+    function openStory(id) {
+      state.activeStoryId = state.activeStoryId === id ? null : id;
+      render();
+    }
+
+    function createPost() {
+      const inp = document.getElementById("newPostText");
+      const text = inp?.value?.trim();
+      if (!text) return showToast("Gönderi metni yazın.");
+
+      const newPost = {
+        id: "post_" + Date.now(),
+        authorUid: state.currentUid,
+        authorName: state.currentUser.name,
+        handle: state.currentUser.handle,
+        text,
+        likes: 1,
+        likedByMe: true,
+        savedByMe: false,
+        comments: []
+      };
+      state.posts.unshift(newPost);
+      inp.value = "";
+      saveState();
+      syncDocToFirestore("posts", newPost.id, newPost);
+      showToast("Gönderi paylaşıldı.");
+      render();
+    }
+
+    function toggleLikePost(id) {
+      const p = state.posts.find((x) => x.id === id);
+      if (!p) return;
+      p.likedByMe = !p.likedByMe;
+      p.likes += p.likedByMe ? 1 : -1;
+      saveState();
+      syncDocToFirestore("posts", p.id, p);
+      render();
+    }
+
+    function toggleSavePost(id) {
+      const p = state.posts.find((x) => x.id === id);
+      if (!p) return;
+      p.savedByMe = !p.savedByMe;
+      saveState();
+      showToast(p.savedByMe ? "Kaydedilenlere eklendi." : "Kaydedilenlerden çıkarıldı.");
+      render();
+    }
+
+    function addPostComment(id) {
+      const inp = document.getElementById("comment_" + id);
+      const val = inp?.value?.trim();
+      if (!val) return;
+      const p = state.posts.find((x) => x.id === id);
+      if (!p) return;
+      p.comments.push(state.currentUser.name + ": " + val);
+      inp.value = "";
+      saveState();
+      syncDocToFirestore("posts", p.id, p);
+      render();
+    }
+
+    function toggleFollow(targetUid) {
+      if (targetUid === state.currentUid) return showToast("Kendi hesabınızı takip edemezsiniz.");
+      const idx = state.following.indexOf(targetUid);
+      if (idx >= 0) {
+        state.following.splice(idx, 1);
+        showToast("Takip bırakıldı.");
+      } else {
+        state.following.push(targetUid);
+        showToast("Takip edildi.");
+      }
+      saveState();
+      render();
+    }
+
+    function onReelVideoPicked(event) {
+      const file = event.target?.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        state.reelDraftVideoUrl = String(reader.result || "");
+        if (!state.reelDraftTitle) state.reelDraftTitle = file.name.replace(/\.[^/.]+$/, "");
+        saveState();
+        showToast("Video yüklendi; güzellik efekti ve hız seçip yayınlayabilirsin.");
+        render();
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function publishReel() {
+      const title = (document.getElementById("reelTitle")?.value || state.reelDraftTitle || "").trim();
+      const caption = (document.getElementById("reelCaption")?.value || state.reelDraftCaption || "").trim();
+      const effect = document.getElementById("reelEffect")?.value || state.reelDraftEffect || "fx-beauty-soft";
+      const speed = document.getElementById("reelSpeed")?.value || state.reelDraftSpeed || "1x";
+
+      if (!title && !caption && !state.reelDraftVideoUrl) {
+        return showToast("Başlık/açıklama yaz veya bir video seç.");
+      }
+
+      const newReel = {
+        id: "reel_" + Date.now(),
+        authorUid: state.currentUid,
+        authorName: state.currentUser.name,
+        title: title || "Yeni Kısa Video",
+        caption: caption || `${speed} hız • ${effect.replace("fx-beauty-", "").replace("fx-", "")} efekt`,
+        videoUrl: state.reelDraftVideoUrl || "",
+        effect,
+        speed,
+        likes: 1,
+        likedByMe: true,
+        savedByMe: false,
+        comments: []
+      };
+
+      state.reels.unshift(newReel);
+      reelIndex = 0;
+      reelProgress = 20;
+      state.reelDraftTitle = "";
+      state.reelDraftCaption = "";
+      state.reelDraftVideoUrl = "";
+      state.reelDraftEffect = effect;
+      state.reelDraftSpeed = speed;
+      stopSnapCamera();
+      saveState();
+      syncDocToFirestore("reels", newReel.id, newReel);
+      showToast("Yeni Reel videosu yayınlandı!");
+      render();
+    }
+
+    function getFilteredCandidates() {
+      const others = state.users.filter((u) => u.uid !== state.currentUid);
+      const filtered = others.filter((u) => {
+        const cityOk = state.discoverCityFilter === "Tümü" || u.city === state.discoverCityFilter;
+        const dist = typeof u.distanceKm === "number" ? u.distanceKm : 25;
+        const distOk = state.passportMode ? true : dist <= state.discoverMaxKm;
+        return cityOk && distOk;
+      });
+      return filtered.length ? filtered : others;
+    }
+
+    function swipeCandidate(liked) {
+      const pool = getFilteredCandidates();
+      if (!pool.length) return;
+      const candidate = pool[state.discoverIndex % pool.length];
+      state.discoverIndex += 1;
+
+      const swipeDoc = {
+        id: "sw_" + Date.now(),
+        fromUid: state.currentUid,
+        toUid: candidate.uid,
+        liked
+      };
+      syncDocToFirestore("swipes", swipeDoc.id, swipeDoc);
+
+      if (liked) {
+        if (!state.matches.includes(candidate.uid)) {
+          state.matches.push(candidate.uid);
+          syncDocToFirestore("matches", `${state.currentUid}_${candidate.uid}`, {
+            users: [state.currentUid, candidate.uid],
+            createdAt: new Date().toISOString()
+          });
+        }
+        showToast(`${candidate.name} ile eşleştin!`);
+      } else {
+        showToast("Sıradaki profil gösteriliyor.");
+      }
+      saveState();
+      render();
+    }
+
+    function sendMessage(toUid) {
+      const inp = document.getElementById("chatInput");
+      const text = inp?.value?.trim();
+      if (!text) return;
+
+      const now = new Date();
+      const time = now.toTimeString().slice(0, 5);
+      const msg = {
+        id: "msg_" + Date.now(),
+        senderUid: state.currentUid,
+        toUid: toUid || "uid_selin_02",
+        text,
+        time
+      };
+      state.messages.push(msg);
+      inp.value = "";
+      saveState();
+      syncDocToFirestore("messages", msg.id, msg);
+      render();
+    }
+
+    function saveProfile() {
+      const name = document.getElementById("profName")?.value?.trim();
+      const city = document.getElementById("profCity")?.value?.trim();
+      const bio = document.getElementById("profBio")?.value?.trim();
+      const plan = document.getElementById("profPlan")?.value;
+
+      if (name) state.currentUser.name = name;
+      if (city) state.currentUser.city = city;
+      if (bio !== undefined) state.currentUser.bio = bio;
+      if (plan) state.currentUser.plan = plan;
+
+      const idx = state.users.findIndex((u) => u.uid === state.currentUid);
+      if (idx >= 0) {
+        state.users[idx] = { ...state.currentUser };
+      } else {
+        state.users.push({ ...state.currentUser });
+      }
+
+      saveState();
+      updateHeaderBadge();
+      syncDocToFirestore("users", state.currentUid, state.currentUser);
+      showToast("Profil ve üyelik teması kaydedildi.");
+      render();
+    }
+
+    function renderSnapCameraStudio() {
+      const activeFxObj = BEAUTY_EFFECTS.find((f) => f.id === state.beautyEffect) || BEAUTY_EFFECTS[0];
+      const glowAlpha = ((state.beautyIntensity / 100) * 0.22).toFixed(2);
+      const glowColor = activeFxObj.glow === "transparent"
+        ? "transparent"
+        : activeFxObj.glow.replace(/0\.\d+\)$/, `${glowAlpha})`);
+
+      return `
+        <div class="card">
+          <div class="card-title">
+            <span>📸 Snapchat Kamera & Güzellik Efektleri</span>
+            <button class="btn btn-sm" onclick="state.snapStudioOpen = !state.snapStudioOpen; saveState(); render();">
+              ${state.snapStudioOpen ? "Gizle" : "Aç"}
+            </button>
+          </div>
+
+          ${state.snapStudioOpen ? `
+            <div class="row" style="margin-bottom:8px;">
+              <button type="button" class="btn btn-sm btn-primary" onclick="startSnapCamera()">
+                ${snapStream ? "🔄 Kamerayı Yenile" : "📷 Kamerayı Aç"}
+              </button>
+              <button type="button" class="btn btn-sm" onclick="flipSnapCamera()">
+                🔁 Ön / Arka
+              </button>
+              <label class="btn btn-sm" style="cursor:pointer;">
+                🖼️ Galeri
+                <input type="file" accept="image/*,video/*" style="display:none;" onchange="onStoryPhotoPicked(event)" />
+              </label>
+            </div>
+
+            <div class="snap-stage">
+              <div class="snap-overlay-top">
+                <span class="snap-tag">${state.cameraFacing === "user" ? "Ön Kamera" : "Arka Kamera"}</span>
+                <span class="snap-tag">${activeFxObj.label} • %${state.beautyIntensity}</span>
+              </div>
+
+              ${state.capturedPhoto ? `
+                <img src="${state.capturedPhoto}" class="snap-media ${state.beautyEffect}" alt="Çekilen fotoğraf" />
+              ` : state.capturedVideoUrl ? `
+                <video src="${state.capturedVideoUrl}" class="snap-media ${state.beautyEffect}" controls autoplay loop muted playsinline></video>
+              ` : `
+                <video id="snapLiveVideo" class="snap-media ${state.cameraFacing === "user" ? "mirror" : ""} ${state.beautyEffect}" autoplay muted playsinline style="${snapStream ? "" : "display:none;"}"></video>
+                ${!snapStream ? `
+                  <div style="text-align:center; padding:24px;">
+                    <div style="font-size:32px; margin-bottom:6px;">✨</div>
+                    <div style="font-weight:700; font-size:14px;">Güzellik Stüdyosu Hazır</div>
+                    <div class="muted">Canlı çekim için "Kamerayı Aç" düğmesine bas veya efektleri seçerek önizle.</div>
+                  </div>
+                ` : ""}
+              `}
+
+              <div class="snap-glow-layer" style="background:${glowColor};"></div>
+            </div>
+
+            <div style="margin-top:10px;">
+              <div class="muted" style="margin-bottom:6px;">Güzellik & Işık Efektleri</div>
+              <div class="chips">
+                ${BEAUTY_EFFECTS.map((fx) => `
+                  <button type="button" class="chip ${state.beautyEffect === fx.id ? "active" : ""}" onclick="state.beautyEffect='${fx.id}'; state.storyDraftEffect='${fx.id}'; state.reelDraftEffect='${fx.id}'; saveState(); render();">
+                    ${fx.label}
+                  </button>
+                `).join("")}
+              </div>
+
+              <div class="muted">Güzellik Yoğunluğu: <strong>%${state.beautyIntensity}</strong></div>
+              <input type="range" min="10" max="100" step="5" value="${state.beautyIntensity}" style="width:100%;" oninput="state.beautyIntensity=Number(this.value); saveState(); render();" />
+            </div>
+
+            <div class="shutter-bar">
+              <button type="button" class="btn btn-sm" onclick="captureSnapPhoto()">📸 Fotoğraf</button>
+              <button type="button" class="shutter-btn ${isRecordingVideo ? "recording" : ""}" onclick="toggleSnapVideoRecord()">
+                ${isRecordingVideo ? "DUR" : "VİDEO"}
+              </button>
+              <button type="button" class="btn btn-sm" onclick="stopSnapCamera(); state.capturedPhoto=''; state.capturedVideoUrl=''; saveState(); render();">
+                ✕ Sıfırla
+              </button>
+            </div>
+
+            ${(state.capturedPhoto || state.capturedVideoUrl) ? `
+              <div class="row" style="margin-top:10px;">
+                <button type="button" class="btn btn-sm btn-primary" style="flex:1;" onclick="sendCapturedToStory()">
+                  Hikâyeye Gönder
+                </button>
+                <button type="button" class="btn btn-sm" style="flex:1;" onclick="sendCapturedToReels()">
+                  Reels'e Gönder
+                </button>
+              </div>
+            ` : ""}
+          ` : ""}
+        </div>
+      `;
+    }
+
+    function renderAuthBox() {
+      const fb = window.__VF_FIREBASE__;
+      const isLiveSignedIn = Boolean(fb && fb.enabled && fb.auth && fb.auth.currentUser);
+
+      return `
+        <div class="card">
+          <div class="card-title">
+            <span>Kimlik & Oturum (uid)</span>
+            <button class="btn btn-sm" onclick="openAuthModal()">Kapat</button>
+          </div>
+          <p class="muted">Aktif kimlik: <span class="badge-uid">${state.currentUid}</span></p>
+          <p class="muted">Firebase Proje: <strong>${fb?.projectId || "vibefollow-d1a36"}</strong> (${fb?.enabled ? "Web Config Aktif" : "Önizleme Modu"})</p>
+
+          <label class="muted">Hızlı Önizleme Kullanıcısı Seç</label>
+          <select class="select" onchange="switchPreviewUid(this.value)">
+            ${state.users.map((u) => `
+              <option value="${u.uid}" ${u.uid === state.currentUid ? "selected" : ""}>
+                ${u.name} (${u.uid})
+              </option>
+            `).join("")}
+          </select>
+
+          <div style="border-top:1px solid var(--border); padding-top:10px; margin-top:6px;">
+            <p class="muted"><strong>Firebase E-posta / Şifre Girişi</strong></p>
+            <input id="authEmail" class="input" type="email" placeholder="ornek@mail.com" />
+            <input id="authPass" class="input" type="password" placeholder="Şifre (en az 6 karakter)" />
+            <div class="row">
+              <button class="btn btn-primary btn-sm" onclick="handleRealAuth('login')">Giriş Yap</button>
+              <button class="btn btn-sm" onclick="handleRealAuth('signup')">Kayıt Ol</button>
+              ${isLiveSignedIn ? `<button class="btn btn-sm" onclick="handleSignOut()">Çıkış</button>` : ""}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderFeed() {
+      const selectedStory = state.stories.find((s) => s.id === state.activeStoryId);
+      const allEffects = [
+        ...BEAUTY_EFFECTS.map((b) => ({ id: b.id, label: b.label })),
+        { id: "fx-vivid", label: "Canlı" },
+        { id: "fx-warm", label: "Gün Batımı" },
+        { id: "fx-neon", label: "Neon" },
+        { id: "fx-mono", label: "Siyah-Beyaz" }
+      ];
+
+      return `
+        ${state.authModalOpen ? renderAuthBox() : ""}
+        ${renderSnapCameraStudio()}
+
+        <div class="card">
+          <div class="card-title"><span>Hikâyeler & Fotoğraf Efektleri</span></div>
+          <div class="stories-strip">
+            ${state.stories.map((st) => {
+              const initial = (st.authorName || "V")[0].toUpperCase();
+              return `
+                <div class="story-item" onclick="openStory('${st.id}')">
+                  <div class="story-ring">
+                    <div class="story-inner ${st.effect || "fx-normal"}">
+                      ${st.photoUrl ? `<img src="${st.photoUrl}" alt="${st.authorName}" />` : initial}
+                    </div>
+                  </div>
+                  <span class="story-name">${st.authorName}</span>
+                </div>
+              `;
+            }).join("")}
+          </div>
+
+          ${selectedStory ? `
+            <div class="story-viewer" style="margin-top:10px;">
+              <div class="row" style="justify-content:space-between; margin-bottom:6px;">
+                <strong>${selectedStory.authorName}</strong>
+                <button class="btn btn-sm" onclick="openStory(null)">Kapat</button>
+              </div>
+              ${selectedStory.photoUrl ? `<img src="${selectedStory.photoUrl}" class="preview-media ${selectedStory.effect || "fx-normal"}" alt="Hikâye" />` : ""}
+              <p class="muted" style="margin:8px 0 0 0;">${selectedStory.text}</p>
+            </div>
+          ` : ""}
+
+          <div style="border-top:1px solid var(--border); padding-top:10px; margin-top:10px;">
+            <div class="row" style="margin-bottom:8px;">
+              <label class="btn btn-sm" style="cursor:pointer;">
+                📷 Fotoğraf Seç
+                <input type="file" accept="image/*" style="display:none;" onchange="onStoryPhotoPicked(event)" />
+              </label>
+              ${state.storyDraftPhoto ? `<button class="btn btn-sm" onclick="state.storyDraftPhoto=''; saveState(); render();">Fotoğrafı Kaldır</button>` : ""}
+            </div>
+
+            ${state.storyDraftPhoto ? `
+              <img src="${state.storyDraftPhoto}" class="preview-media ${state.storyDraftEffect}" style="margin-bottom:8px;" alt="Önizleme" />
+            ` : ""}
+
+            <div class="chips">
+              ${allEffects.map((e) => `
+                <button type="button" class="chip ${state.storyDraftEffect === e.id ? "active" : ""}" onclick="setStoryEffect('${e.id}')">
+                  ${e.label}
+                </button>
+              `).join("")}
+            </div>
+
+            <div class="row">
+              <input id="newStoryText" class="input" style="margin-bottom:0; flex:1;" placeholder="Hikâye notu yaz..." />
+              <button class="btn btn-sm btn-primary" onclick="addStory()">Paylaş</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><span>Yeni Gönderi Paylaş</span></div>
+          <textarea id="newPostText" class="textarea" rows="2" placeholder="Aklındakini paylaş..."></textarea>
+          <button class="btn btn-primary btn-sm" onclick="createPost()">Paylaş</button>
+        </div>
+
+        ${state.posts.map((p) => {
+          const isFollowed = state.following.includes(p.authorUid);
+          return `
+            <article class="post-card">
+              <div class="post-head">
+                <div class="row">
+                  <div class="avatar-sm">${(p.authorName || "U")[0]}</div>
+                  <div>
+                    <div style="font-weight:700; font-size:14px;">${p.authorName}</div>
+                    <div class="muted">${p.handle} • <span class="badge-uid">${p.authorUid}</span></div>
+                  </div>
+                </div>
+                <button class="btn btn-sm" onclick="toggleFollow('${p.authorUid}')">
+                  ${isFollowed ? "Takip Ediliyor" : "Takip Et"}
+                </button>
+              </div>
+              <div class="post-media">${p.text}</div>
+              <div class="post-actions">
+                <div class="row">
+                  <button class="btn btn-sm" onclick="toggleLikePost('${p.id}')">
+                    ${p.likedByMe ? "❤️" : "🤍"} ${p.likes}
+                  </button>
+                  <button class="btn btn-sm" onclick="toggleSavePost('${p.id}')">
+                    ${p.savedByMe ? "🔖 Kaydedildi" : "📑 Kaydet"}
+                  </button>
+                </div>
+                <span class="muted">${p.comments.length} yorum</span>
+              </div>
+              <div style="padding:0 14px 12px 14px;">
+                ${p.comments.map((c) => `<div class="muted" style="margin-bottom:4px;">• ${c}</div>`).join("")}
+                <div class="row" style="margin-top:6px;">
+                  <input id="comment_${p.id}" class="input" style="margin-bottom:0; flex:1;" placeholder="Yorum yaz..." />
+                  <button class="btn btn-sm" onclick="addPostComment('${p.id}')">Gönder</button>
+                </div>
+              </div>
+            </article>
+          `;
+        }).join("")}
+      `;
+    }
+
+    function renderReels() {
+      const r = state.reels[reelIndex % state.reels.length];
+      return `
+        ${state.authModalOpen ? renderAuthBox() : ""}
+        ${renderSnapCameraStudio()}
+
+        <div class="card">
+          <div class="card-title"><span>🎬 Kısa Video Oluştur (TikTok Akışı)</span></div>
+          <div class="row" style="margin-bottom:8px;">
+            <label class="btn btn-sm" style="cursor:pointer;">
+              🎥 Video Seç
+              <input type="file" accept="video/*" style="display:none;" onchange="onReelVideoPicked(event)" />
+            </label>
+          </div>
+          ${state.reelDraftVideoUrl ? `
+            <video src="${state.reelDraftVideoUrl}" class="preview-media ${state.reelDraftEffect}" style="margin-bottom:8px;" controls muted playsinline></video>
+          ` : ""}
+          <input id="reelTitle" class="input" placeholder="Video başlığı..." value="${state.reelDraftTitle || ""}" oninput="state.reelDraftTitle = this.value" />
+          <input id="reelCaption" class="input" placeholder="Açıklama veya etiket..." value="${state.reelDraftCaption || ""}" oninput="state.reelDraftCaption = this.value" />
+          <div class="row">
+            <select id="reelEffect" class="select" style="flex:1; margin-bottom:0;" onchange="state.reelDraftEffect = this.value">
+              <option value="fx-beauty-soft" ${state.reelDraftEffect === "fx-beauty-soft" ? "selected" : ""}>Güzellik: Pürüzsüz Cilt</option>
+              <option value="fx-beauty-rosy" ${state.reelDraftEffect === "fx-beauty-rosy" ? "selected" : ""}>Güzellik: Pembe Aydınlık</option>
+              <option value="fx-beauty-porcelain" ${state.reelDraftEffect === "fx-beauty-porcelain" ? "selected" : ""}>Güzellik: Porselen</option>
+              <option value="fx-beauty-golden" ${state.reelDraftEffect === "fx-beauty-golden" ? "selected" : ""}>Güzellik: Altın Saat</option>
+              <option value="fx-beauty-cool" ${state.reelDraftEffect === "fx-beauty-cool" ? "selected" : ""}>Güzellik: Soğuk Işık</option>
+              <option value="fx-normal" ${state.reelDraftEffect === "fx-normal" ? "selected" : ""}>Efekt: Doğal</option>
+              <option value="fx-vivid" ${state.reelDraftEffect === "fx-vivid" ? "selected" : ""}>Efekt: Canlı</option>
+              <option value="fx-warm" ${state.reelDraftEffect === "fx-warm" ? "selected" : ""}>Efekt: Gün Batımı</option>
+              <option value="fx-neon" ${state.reelDraftEffect === "fx-neon" ? "selected" : ""}>Efekt: Neon</option>
+              <option value="fx-mono" ${state.reelDraftEffect === "fx-mono" ? "selected" : ""}>Efekt: Siyah-Beyaz</option>
+            </select>
+            <select id="reelSpeed" class="select" style="width:105px; margin-bottom:0;" onchange="state.reelDraftSpeed = this.value">
+              <option value="0.75x" ${state.reelDraftSpeed === "0.75x" ? "selected" : ""}>0.75x</option>
+              <option value="1x" ${state.reelDraftSpeed === "1x" ? "selected" : ""}>1x</option>
+              <option value="1.5x" ${state.reelDraftSpeed === "1.5x" ? "selected" : ""}>1.5x</option>
+            </select>
+            <button class="btn btn-sm btn-primary" onclick="publishReel()">Yayınla</button>
+          </div>
+        </div>
+
+        <div class="reel-box">
+          <div class="row" style="justify-content:space-between;">
+            <span class="mode-pill">Reels • ${reelIndex + 1}/${state.reels.length} • ${r.speed || "1x"}</span>
+            <button class="btn btn-sm" onclick="reelPlaying = !reelPlaying; render();">
+              ${reelPlaying ? "⏸ Duraklat" : "▶️ Oynat"}
+            </button>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width:${reelProgress}%"></div>
+          </div>
+          ${r.videoUrl ? `
+            <video src="${r.videoUrl}" class="preview-media ${r.effect || "fx-normal"}" controls autoplay loop muted playsinline></video>
+          ` : r.photoUrl ? `
+            <img src="${r.photoUrl}" class="preview-media ${r.effect || "fx-normal"}" alt="${r.title}" />
+          ` : ""}
+          <h3 style="margin:4px 0 0 0; font-size:18px;">${r.title}</h3>
+          <p class="muted" style="margin:0;">${r.caption}</p>
+          <div class="muted">Üreten: <strong>${r.authorName}</strong> <span class="badge-uid">${r.authorUid}</span></div>
+          <div class="row" style="margin-top:6px;">
+            <button class="btn btn-sm" onclick="r.likedByMe = !r.likedByMe; r.likes += r.likedByMe ? 1 : -1; saveState(); render();">
+              ${r.likedByMe ? "❤️" : "🤍"} ${r.likes}
+            </button>
+            <button class="btn btn-sm" onclick="r.savedByMe = !r.savedByMe; saveState(); showToast('Reels durumu güncellendi.'); render();">
+              ${r.savedByMe ? "🔖 Kaydedildi" : "📑 Kaydet"}
+            </button>
+            <button class="btn btn-sm btn-primary" onclick="reelIndex = (reelIndex + 1) % state.reels.length; reelProgress = 25; render();">
+              Sonraki Reel →
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderDiscover() {
+      const pool = getFilteredCandidates();
+      const candidate = pool[state.discoverIndex % pool.length];
+      const cities = ["Tümü", "Silivri", "İstanbul", "Tekirdağ"];
+
+      return `
+        ${state.authModalOpen ? renderAuthBox() : ""}
+        <div class="card">
+          <div class="card-title">
+            <span>Keşfet & Konum Filtresi</span>
+            <button class="btn btn-sm ${state.passportMode ? "btn-primary" : ""}" onclick="state.passportMode = !state.passportMode; state.discoverIndex = 0; saveState(); render();">
+              ${state.passportMode ? "🌍 Pasaport Açık" : "📍 Yerel Mod"}
+            </button>
+          </div>
+
+          <div class="chips">
+            ${cities.map((c) => `
+              <button class="chip ${state.discoverCityFilter === c ? "active" : ""}" onclick="state.discoverCityFilter = '${c}'; state.discoverIndex = 0; saveState(); render();">
+                ${c}
+              </button>
+            `).join("")}
+          </div>
+
+          ${!state.passportMode ? `
+            <div style="margin-bottom:6px;">
+              <div class="muted">Maksimum Mesafe: <strong>${state.discoverMaxKm} km</strong></div>
+              <input type="range" min="10" max="150" step="5" value="${state.discoverMaxKm}" style="width:100%;" oninput="state.discoverMaxKm = Number(this.value); state.discoverIndex = 0; saveState(); render();" />
+            </div>
+          ` : `<p class="muted" style="margin:0;">Pasaport aktif: tüm şehirlerdeki profiller gösteriliyor.</p>`}
+
+          <p class="muted" style="margin:6px 0 0 0;">Eşleşme sayısı: <strong>${state.matches.length}</strong></p>
+        </div>
+
+        ${candidate ? `
+          <div class="swipe-card">
+            <div class="row">
+              <div class="avatar-sm">${candidate.name[0]}</div>
+              <div>
+                <div style="font-weight:700; font-size:16px;">${candidate.name}</div>
+                <div class="muted">${candidate.handle} • ${candidate.city || "Türkiye"} • ${candidate.distanceKm ?? 15} km</div>
+              </div>
+            </div>
+            <p style="margin:6px 0; font-size:14px; line-height:1.5;">${candidate.bio}</p>
+            <div class="muted">Plan: <strong>${candidate.plan || "Ücretsiz"}</strong> • <span class="badge-uid">${candidate.uid}</span></div>
+            <div class="row" style="margin-top:8px;">
+              <button class="btn" style="flex:1;" onclick="swipeCandidate(false)">Geç</button>
+              <button class="btn btn-primary" style="flex:1;" onclick="swipeCandidate(true)">Beğen & Eşleş</button>
+            </div>
+          </div>
+        ` : `<div class="card"><p class="muted">Keşfedilecek başka profil bulunmuyor.</p></div>`}
+      `;
+    }
+
+    function renderChat() {
+      const partner = state.users.find((u) => state.matches.includes(u.uid))
+        || state.users.find((u) => u.uid !== state.currentUid)
+        || state.currentUser;
+
+      const thread = state.messages.filter(
+        (m) => m.senderUid === state.currentUid || m.toUid === state.currentUid
+      );
+
+      return `
+        ${state.authModalOpen ? renderAuthBox() : ""}
+        <div class="card">
+          <div class="card-title">
+            <span>Sohbet: ${partner.name}</span>
+            <span class="mode-pill">${partner.city || "Çevrimiçi"}</span>
+          </div>
+          <div class="msg-list">
+            ${thread.length ? thread.map((m) => {
+              const mine = m.senderUid === state.currentUid;
+              return `
+                <div class="msg-bubble ${mine ? "msg-me" : "msg-other"}">
+                  <div>${m.text}</div>
+                  <div style="font-size:10px; opacity:0.75; margin-top:3px; text-align:right;">${m.time}</div>
+                </div>
+              `;
+            }).join("") : `<p class="muted">Henüz mesaj yok. İlk mesajı gönder.</p>`}
+          </div>
+          <div class="row" style="margin-top:10px;">
+            <input id="chatInput" class="input" style="margin-bottom:0; flex:1;" placeholder="Mesaj yaz..." />
+            <button class="btn btn-primary btn-sm" onclick="sendMessage('${partner.uid}')">Gönder</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderProfile() {
+      const u = state.currentUser;
+      const savedPosts = state.posts.filter((p) => p.savedByMe);
+      const followedUsers = state.users.filter((usr) => state.following.includes(usr.uid));
+
+      return `
+        ${state.authModalOpen ? renderAuthBox() : ""}
+        <div class="card">
+          <div class="card-title">
+            <span>Profilim</span>
+            <span class="plan-badge">${u.plan || "Plus Aylık (150 TL)"}</span>
+          </div>
+          <p class="muted">Kullanıcı Kimliği (uid): <span class="badge-uid">${u.uid}</span></p>
+          <label class="muted">Ad Soyad</label>
+          <input id="profName" class="input" value="${u.name}" />
+          <label class="muted">Şehir</label>
+          <input id="profCity" class="input" value="${u.city || ""}" />
+          <label class="muted">Hakkında</label>
+          <textarea id="profBio" class="textarea" rows="2">${u.bio || ""}</textarea>
+          <label class="muted">Üyelik Planı & Tema Vurgusu</label>
+          <select id="profPlan" class="select">
+            <option ${u.plan === "Ücretsiz" ? "selected" : ""}>Ücretsiz</option>
+            <option ${u.plan === "Plus Haftalık (50 TL)" ? "selected" : ""}>Plus Haftalık (50 TL)</option>
+            <option ${u.plan === "Plus Aylık (150 TL)" ? "selected" : ""}>Plus Aylık (150 TL)</option>
+            <option ${u.plan === "Plus Yıllık (900 TL)" ? "selected" : ""}>Plus Yıllık (900 TL)</option>
+          </select>
+          <button class="btn btn-primary" onclick="saveProfile()">Profili Kaydet</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><span>🔖 Kaydedilen Gönderiler (${savedPosts.length})</span></div>
+          ${savedPosts.length ? savedPosts.map((sp) => `
+            <div class="list-item">
+              <div>
+                <div style="font-weight:700; font-size:13px;">${sp.authorName}</div>
+                <div class="muted">${sp.text}</div>
+              </div>
+              <button class="btn btn-sm" onclick="toggleSavePost('${sp.id}')">Kaldır</button>
+            </div>
+          `).join("") : `<p class="muted" style="margin:0;">Henüz kaydedilmiş gönderi yok.</p>`}
+        </div>
+
+        <div class="card">
+          <div class="card-title"><span>👥 Takip Edilenler (${followedUsers.length})</span></div>
+          ${followedUsers.length ? followedUsers.map((fu) => `
+            <div class="list-item">
+              <div>
+                <div style="font-weight:700; font-size:13px;">${fu.name}</div>
+                <div class="muted">${fu.handle} • ${fu.city || ""}</div>
+              </div>
+              <button class="btn btn-sm" onclick="toggleFollow('${fu.uid}')">Takipten Çık</button>
+            </div>
+          `).join("") : `<p class="muted" style="margin:0;">Henüz takip edilen kişi yok.</p>`}
+        </div>
+      `;
+    }
+
+    function render() {
+      updateHeaderBadge();
+      const main = document.getElementById("mainContent");
+      if (state.activeTab === "feed") main.innerHTML = renderFeed();
+      else if (state.activeTab === "reels") main.innerHTML = renderReels();
+      else if (state.activeTab === "discover") main.innerHTML = renderDiscover();
+      else if (state.activeTab === "chat") main.innerHTML = renderChat();
+      else main.innerHTML = renderProfile();
+
+      if (snapStream) {
+        const vid = document.getElementById("snapLiveVideo");
+        if (vid && vid.srcObject !== snapStream) {
+          vid.srcObject = snapStream;
+          vid.play().catch(() => {});
+        }
+      }
+    }
+
+    setInterval(() => {
+      if (state.activeTab === "reels" && reelPlaying) {
+        reelProgress = reelProgress >= 100 ? 15 : reelProgress + 10;
+        const fill = document.querySelector(".progress-fill");
+        if (fill) fill.style.width = reelProgress + "%";
+      }
+    }, 900);
+
+    window.addEventListener("vf-firebase-ready", () => {
+      updateHeaderBadge();
+      const fb = window.__VF_FIREBASE__;
+      if (fb.auth) {
+        fb.fns.onAuthStateChanged(fb.auth, (user) => {
+          if (user) {
+            state.currentUid = user.uid;
+            state.currentUser.uid = user.uid;
+            saveState();
+          }
+          updateHeaderBadge();
+          render();
+        });
+      }
+    });
+
+    render();
+  </script>
+</body>
+</html>
