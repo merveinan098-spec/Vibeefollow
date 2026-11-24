@@ -1,0 +1,1680 @@
+```html
+<!DOCTYPE html>
+<html lang="tr" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>YAKIN — Siyah Lüks Sosyal & Keşif</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Cinzel (Lüks Başlıklar için) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        luxury: ['"Cinzel"', 'serif'],
+                    },
+                    colors: {
+                        obsidian: '#050507',
+                        velvet: '#0D0D11',
+                        smoked: '#15151C',
+                        gold: '#E5C158',
+                        goldDim: '#B89436',
+                        roseLuxury: '#FF4769',
+                    },
+                    boxShadow: {
+                        'gold-glow': '0 0 25px -5px rgba(229, 193, 88, 0.35)',
+                        'rose-glow': '0 0 25px -5px rgba(255, 71, 105, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Özel Kaydırma Çubuğu Gizleme & Lüks Cam Efektleri */
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            background-color: #020203;
+            color: #F4F4F6;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .smoked-glass {
+            background: rgba(16, 16, 22, 0.78);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+        .gold-border-glass {
+            background: linear-gradient(145deg, rgba(229, 193, 88, 0.12), rgba(13, 13, 17, 0.9));
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(229, 193, 88, 0.32);
+        }
+        .gold-text-gradient {
+            background: linear-gradient(135deg, #F9E596 0%, #E5C158 50%, #B88E28 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Canlı Ses Dalgası Animasyonu */
+        @keyframes soundWave {
+            0%, 100% { height: 6px; }
+            50% { height: 22px; }
+        }
+        .wave-bar {
+            animation: soundWave 1.1s ease-in-out infinite;
+        }
+        .wave-bar:nth-child(2) { animation-delay: 0.15s; }
+        .wave-bar:nth-child(3) { animation-delay: 0.3s; }
+        .wave-bar:nth-child(4) { animation-delay: 0.45s; }
+        .wave-bar:nth-child(5) { animation-delay: 0.2s; }
+
+        /* Radar Nabız Efekti */
+        @keyframes pulseRing {
+            0% { transform: scale(0.85); opacity: 0.75; }
+            100% { transform: scale(1.8); opacity: 0; }
+        }
+        .radar-ring {
+            animation: pulseRing 2.4s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+
+        /* Kart Geçiş Animasyonu */
+        .card-transition {
+            transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+        }
+        @keyframes heartBurst {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.25); opacity: 1; }
+            100% { transform: scale(1); opacity: 0; }
+        }
+        .animate-heart-burst {
+            animation: heartBurst 0.75s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center sm:py-6">
+
+    <!-- Üst Platform Seçici & Marka Bilgisi (Masaüstü Görünümde Şık Çerçeve) -->
+    <div class="hidden sm:flex items-center gap-3 mb-3 px-4 py-1.5 rounded-full smoked-glass text-[11px] text-zinc-400">
+        <span class="text-gold font-semibold">YAKIN v2.0</span>
+        <span>•</span>
+        <button onclick="setPlatformMode('ios')" id="btn-plat-ios" class="text-white font-semibold flex items-center gap-1 transition">
+            <span> iPhone</span>
+        </button>
+        <span>/</span>
+        <button onclick="setPlatformMode('android')" id="btn-plat-android" class="text-zinc-400 hover:text-white flex items-center gap-1 transition">
+            <span>🤖 Android</span>
+        </button>
+        <span>•</span>
+        <span class="text-emerald-400 flex items-center gap-1"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Yaklaşık Mesafe Koruması</span>
+    </div>
+
+    <!-- ANA MOBİL UYGULAMA KASASI -->
+    <div id="app-shell" class="relative w-full sm:w-[412px] h-[100dvh] sm:h-[844px] bg-obsidian sm:rounded-[46px] sm:border-[6px] sm:border-zinc-900 sm:shadow-[0_25px_90px_-15px_rgba(229,193,88,0.18)] flex flex-col overflow-hidden">
+
+        <!-- Durum Çubuğu (iOS / Android Dinamik) -->
+        <div class="px-6 pt-2.5 pb-1 flex items-center justify-between text-[11px] font-semibold text-zinc-300 select-none shrink-0 z-20">
+            <span id="status-clock">23:16</span>
+            <!-- Dinamik Ada / Kamera Çentiği -->
+            <div id="device-notch" class="w-24 h-5 bg-black rounded-full border border-white/5 flex items-center justify-end px-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-500/80 animate-pulse" title="Gizlilik Kalkanı Aktif"></span>
+            </div>
+            <div class="flex items-center gap-1.5">
+                <i data-lucide="signal" class="w-3.5 h-3.5"></i>
+                <i data-lucide="wifi" class="w-3.5 h-3.5"></i>
+                <i data-lucide="battery-full" class="w-4 h-4 text-gold"></i>
+            </div>
+        </div>
+
+        <!-- ÜST LÜKS BAŞLIK (HEADER) -->
+        <header class="px-4 py-2.5 flex items-center justify-between border-b border-white/[0.06] shrink-0 z-20 bg-obsidian/90 backdrop-blur-md">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-xl gold-border-glass flex items-center justify-center shadow-gold-glow">
+                    <span class="font-luxury font-extrabold text-sm gold-text-gradient">Y</span>
+                </div>
+                <div>
+                    <div class="flex items-center gap-1.5">
+                        <h1 class="font-luxury font-bold text-lg tracking-[0.2em] gold-text-gradient">YAKIN</h1>
+                        <span id="gold-active-pill" class="hidden text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-gold text-obsidian tracking-wider">GOLD</span>
+                    </div>
+                    <p class="text-[10px] text-emerald-400/90 flex items-center gap-1 leading-none">
+                        <i data-lucide="shield" class="w-2.5 h-2.5"></i>
+                        <span id="header-privacy-text">~5 km • Tam Konum Gizli</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <!-- Kimler Beğendi Hızlı Buton -->
+                <button onclick="openLikesModal()" class="relative p-2 rounded-2xl smoked-glass hover:border-gold/40 transition" title="Kimler Beğendi">
+                    <i data-lucide="heart" class="w-4 h-4 text-roseLuxury"></i>
+                    <span id="likes-badge-count" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-roseLuxury text-[9px] font-bold text-white flex items-center justify-center">4</span>
+                </button>
+                <!-- YAKIN Gold Üyelik Tetikleyici -->
+                <button onclick="openPremiumModal()" class="px-2.5 py-1.5 rounded-2xl gold-border-glass flex items-center gap-1 text-[11px] font-bold text-gold hover:scale-105 transition shadow-gold-glow">
+                    <i data-lucide="crown" class="w-3.5 h-3.5 fill-gold"></i>
+                    <span>Gold</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- ANA İÇERİK ALANI (SEKMELER) -->
+        <main class="flex-1 overflow-y-auto no-scrollbar relative">
+
+            <!-- ========================================================= -->
+            <!-- SEKME 1: KEŞFET (Siyah Lüks Kaydırma & Yakınımda Radarı)  -->
+            <!-- ========================================================= -->
+            <section id="tab-discover" class="p-3.5 space-y-3 pb-24">
+                <!-- Yakınımda Radar & Mesafe Gizlilik Çubuğu -->
+                <div class="p-3 rounded-3xl smoked-glass space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <div class="relative flex items-center justify-center w-6 h-6">
+                                <span class="absolute inset-0 rounded-full bg-gold/30 radar-ring"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-gold"></span>
+                            </div>
+                            <div>
+                                <span class="text-xs font-bold text-white">Yakınımda Radarı</span>
+                                <span class="block text-[10px] text-zinc-400">Tam adres yerine yaklaşık mesafe</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1 bg-obsidian p-1 rounded-xl border border-white/5">
+                            <button onclick="setRadius(1, this)" class="rad-btn px-2 py-1 rounded-lg text-[10px] font-semibold text-zinc-400">~1 km</button>
+                            <button onclick="setRadius(5, this)" class="rad-btn px-2 py-1 rounded-lg text-[10px] font-bold bg-gold text-obsidian">~5 km</button>
+                            <button onclick="setRadius(15, this)" class="rad-btn px-2 py-1 rounded-lg text-[10px] font-semibold text-zinc-400">~15 km</button>
+                        </div>
+                    </div>
+
+                    <!-- Yakındaki Aktif Kişiler Mini Şeridi -->
+                    <div id="nearby-strip" class="flex gap-2.5 overflow-x-auto no-scrollbar pt-0.5">
+                        <!-- JS ile doldurulur -->
+                    </div>
+                </div>
+
+                <!-- Ana Lüks Eşleşme Kartı Alanı -->
+                <div id="swipe-card-wrapper" class="relative h-[435px] w-full rounded-[32px] overflow-hidden border border-white/10 shadow-2xl bg-velvet select-none">
+                    <!-- Kart içeriği JS ile doldurulur -->
+                </div>
+
+                <!-- Yüzen Cam Aksiyon Çubuğu (Geri Al, Geç, Gizli Beğeni, Beğen) -->
+                <div class="flex items-center justify-center gap-3.5 pt-1">
+                    <button onclick="rewindProfile()" class="w-12 h-12 rounded-2xl smoked-glass flex items-center justify-center text-amber-300 hover:scale-105 active:scale-95 transition" title="Geri Al">
+                        <i data-lucide="rotate-ccw" class="w-5 h-5"></i>
+                    </button>
+                    <button onclick="handleSwipe('pass')" class="w-15 h-15 p-4 rounded-3xl smoked-glass border-white/10 flex items-center justify-center text-zinc-300 hover:text-white hover:border-white/25 hover:scale-105 active:scale-95 transition" title="Geç">
+                        <i data-lucide="x" class="w-7 h-7"></i>
+                    </button>
+                    <!-- Gizli Beğeni (Karşılıklı beğeni olmadan görünmez) -->
+                    <button onclick="handleSwipe('secret')" class="relative w-14 h-14 rounded-3xl gold-border-glass flex flex-col items-center justify-center text-gold hover:scale-105 active:scale-95 transition shadow-gold-glow" title="Gizli Beğeni">
+                        <i data-lucide="lock" class="w-5 h-5"></i>
+                        <span class="text-[8px] font-extrabold uppercase tracking-wider mt-0.5">Gizli</span>
+                    </button>
+                    <button onclick="handleSwipe('like')" class="w-15 h-15 p-4 rounded-3xl bg-gradient-to-tr from-roseLuxury to-pink-500 flex items-center justify-center text-white shadow-rose-glow hover:scale-105 active:scale-95 transition" title="Beğen">
+                        <i data-lucide="heart" class="w-7 h-7 fill-white"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- ========================================================= -->
+            <!-- SEKME 2: AKIŞ (Hikayeler + Foto/Video + Reels + Gündem)   -->
+            <!-- ========================================================= -->
+            <section id="tab-feed" class="hidden pb-24 space-y-3">
+                <!-- Hikâyeler Barı (24s / 48s Süre Rozetli) -->
+                <div class="px-3.5 pt-3">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Hikâyeler</span>
+                        <span class="text-[10px] text-gold">24s & 48s Özel Süre</span>
+                    </div>
+                    <div id="stories-bar" class="flex gap-3 overflow-x-auto no-scrollbar pb-1">
+                        <!-- JS ile doldurulur -->
+                    </div>
+                </div>
+
+                <!-- Alt Segment Seçici: Foto & Video | Reels | Gündem & Konular -->
+                <div class="px-3.5">
+                    <div class="p-1 rounded-2xl smoked-glass grid grid-cols-3 gap-1">
+                        <button onclick="switchFeedMode('posts')" id="fmode-posts" class="py-2 rounded-xl bg-gold text-obsidian text-xs font-bold transition">Foto & Video</button>
+                        <button onclick="switchFeedMode('reels')" id="fmode-reels" class="py-2 rounded-xl text-zinc-400 text-xs font-semibold hover:text-white transition">Reels</button>
+                        <button onclick="switchFeedMode('threads')" id="fmode-threads" class="py-2 rounded-xl text-zinc-400 text-xs font-semibold hover:text-white transition">Gündem & Konu</button>
+                    </div>
+                </div>
+
+                <!-- 2A. Foto & Video Akışı -->
+                <div id="feed-view-posts" class="px-3.5 space-y-4">
+                    <!-- JS ile doldurulur -->
+                </div>
+
+                <!-- 2B. Reels Kısa Video Alanı -->
+                <div id="feed-view-reels" class="hidden px-3.5 space-y-4">
+                    <!-- JS ile doldurulur -->
+                </div>
+
+                <!-- 2C. Gündem & Konular (Threads Tarzı Anket, Zincir, Alıntı, Yanıt İzni) -->
+                <div id="feed-view-threads" class="hidden px-3.5 space-y-3.5">
+                    <!-- Oluşturucu Kartı -->
+                    <div class="p-3.5 rounded-3xl smoked-glass space-y-2.5">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-gold flex items-center gap-1.5">
+                                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Düşünce, Anket veya Zincir Paylaş
+                            </span>
+                            <select id="thread-perm" class="bg-obsidian border border-white/10 rounded-xl px-2 py-1 text-[10px] text-zinc-300 focus:outline-none">
+                                <option value="Herkes yanıtlayabilir">🌐 Herkes</option>
+                                <option value="Takipçilere özel yanıt">👥 Takipçiler</option>
+                                <option value="Yanıtlar kapalı">🔒 Kapalı</option>
+                            </select>
+                        </div>
+                        <textarea id="thread-text-input" rows="2" placeholder="Kısa not, uzun yazı veya tartışma konusu başlat..." class="w-full bg-obsidian/90 border border-white/10 rounded-2xl p-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-gold resize-none"></textarea>
+
+                        <!-- Anket Oluşturma Alanı -->
+                        <div id="thread-poll-box" class="hidden p-2.5 rounded-2xl bg-obsidian border border-gold/30 space-y-2">
+                            <div class="flex items-center justify-between text-[10px] text-gold font-bold">
+                                <span>📊 Anket Seçenekleri</span>
+                                <select id="thread-poll-dur" class="bg-smoked border border-white/10 rounded-lg px-1.5 py-0.5 text-zinc-200">
+                                    <option value="1s">⏱️ 1 Saat</option>
+                                    <option value="24s" selected>⏱️ 24 Saat</option>
+                                    <option value="3g">⏱️ 3 Gün</option>
+                                </select>
+                            </div>
+                            <input id="poll-in-1" type="text" placeholder="1. Seçenek" class="w-full bg-smoked border border-white/10 rounded-xl px-2.5 py-1.5 text-[11px] text-white">
+                            <input id="poll-in-2" type="text" placeholder="2. Seçenek" class="w-full bg-smoked border border-white/10 rounded-xl px-2.5 py-1.5 text-[11px] text-white">
+                        </div>
+
+                        <div class="flex items-center justify-between pt-1">
+                            <div class="flex items-center gap-1.5">
+                                <button onclick="toggleThreadPollBox()" class="px-2.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-[11px] text-gold flex items-center gap-1">
+                                    <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i> Anket
+                                </button>
+                                <button onclick="attachThreadTag('🎞️ GIF Eklendi')" class="px-2.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-[11px] text-zinc-300">GIF</button>
+                                <button onclick="attachThreadTag('🔗 yakins.app/etkinlik')" class="px-2.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-[11px] text-zinc-300">Bağlantı</button>
+                            </div>
+                            <button onclick="publishThread()" class="px-4 py-1.5 rounded-xl bg-gold text-obsidian font-bold text-xs hover:opacity-90 transition">Paylaş</button>
+                        </div>
+                        <div id="thread-tag-preview" class="hidden text-[11px] text-gold bg-obsidian px-2.5 py-1 rounded-lg border border-gold/25"></div>
+                    </div>
+
+                    <!-- Akış Filtreleri -->
+                    <div class="flex gap-2 overflow-x-auto no-scrollbar">
+                        <button onclick="filterThreads('all', this)" class="t-chip px-3 py-1 rounded-full bg-gold text-obsidian text-[11px] font-bold shrink-0">✨ Sana Özel</button>
+                        <button onclick="filterThreads('trend', this)" class="t-chip px-3 py-1 rounded-full smoked-glass text-zinc-300 text-[11px] shrink-0">🔥 Trend</button>
+                        <button onclick="filterThreads('popular', this)" class="t-chip px-3 py-1 rounded-full smoked-glass text-zinc-300 text-[11px] shrink-0">⭐ Popüler</button>
+                        <button onclick="filterThreads('interest', this)" class="t-chip px-3 py-1 rounded-full smoked-glass text-zinc-300 text-[11px] shrink-0">🎯 İlgi Alanı</button>
+                    </div>
+
+                    <!-- Konular Listesi -->
+                    <div id="threads-container" class="space-y-3">
+                        <!-- JS ile doldurulur -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================================= -->
+            <!-- SEKME 3: ODALAR & GRUPLAR (Canlı Odalar & İlgi Grupları)   -->
+            <!-- ========================================================= -->
+            <section id="tab-rooms" class="hidden p-3.5 pb-24 space-y-4">
+                <!-- Canlı Sesli & Görüntülü Odalar -->
+                <div class="space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <h2 class="font-bold text-sm text-white flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-roseLuxury animate-ping"></span> Canlı Odalar
+                        </h2>
+                        <span class="text-[11px] text-gold">Sesli Sohbet & Yayın</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-2.5">
+                        <div class="p-3.5 rounded-3xl gold-border-glass flex items-center justify-between">
+                            <div class="space-y-1">
+                                <div class="flex items-center gap-2">
+                                    <span class="px-2 py-0.5 rounded-md bg-roseLuxury text-[9px] font-extrabold uppercase">CANLI SES</span>
+                                    <span class="text-[10px] text-zinc-300">~2 km çevrende • 38 kişi</span>
+                                </div>
+                                <h3 class="text-sm font-bold text-white">Gece Kahvesi & Akustik Sohbet</h3>
+                                <p class="text-[11px] text-zinc-400">Moderatör: Selin & Kaan</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="flex items-end gap-0.5 h-6">
+                                    <span class="w-1 bg-gold rounded-full wave-bar"></span>
+                                    <span class="w-1 bg-gold rounded-full wave-bar"></span>
+                                    <span class="w-1 bg-gold rounded-full wave-bar"></span>
+                                    <span class="w-1 bg-gold rounded-full wave-bar"></span>
+                                </div>
+                                <button onclick="openLiveRoomModal('Gece Kahvesi & Akustik Sohbet', 'Selin & Kaan')" class="px-3.5 py-2 rounded-2xl bg-gold text-obsidian font-bold text-xs">Katıl</button>
+                            </div>
+                        </div>
+
+                        <div class="p-3.5 rounded-3xl smoked-glass flex items-center justify-between">
+                            <div class="space-y-1">
+                                <div class="flex items-center gap-2">
+                                    <span class="px-2 py-0.5 rounded-md bg-purple-500/30 border border-purple-400/40 text-purple-200 text-[9px] font-extrabold uppercase">CANLI YAYIN</span>
+                                    <span class="text-[10px] text-zinc-400">~4 km • 64 izleyici</span>
+                                </div>
+                                <h3 class="text-sm font-bold text-white">Boğaz'da Gün Batımı & Plak Dinletisi</h3>
+                                <p class="text-[11px] text-zinc-400">Yayıncı: Emirhan Aksoy</p>
+                            </div>
+                            <button onclick="openLiveRoomModal('Boğaz\'da Gün Batımı & Plak Dinletisi', 'Emirhan Aksoy')" class="px-3.5 py-2 rounded-2xl bg-white/10 hover:bg-gold hover:text-obsidian text-white font-bold text-xs transition">İzle</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- YAKIN Gruplar (Kitap, Müzik, Moda, Aşk) -->
+                <div class="space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <h2 class="font-bold text-sm text-white">YAKIN Gruplar</h2>
+                        <span class="text-[11px] text-zinc-400">Ortak İlgi Toplulukları</span>
+                    </div>
+
+                    <div class="flex gap-2 overflow-x-auto no-scrollbar">
+                        <button onclick="filterGroups('all', this)" class="g-chip px-3 py-1 rounded-full bg-gold text-obsidian text-[11px] font-bold shrink-0">Tümü</button>
+                        <button onclick="filterGroups('kitap', this)" class="g-chip px-3 py-1 rounded-full smoked-glass text-zinc-300 text-[11px] shrink-0">📚 Kitap</button>
+                        <button onclick="filterGroups('muzik', this)" class="g-chip px-3 py-1 rounded-full smoked-glass text-zinc-300 text-[11px] shrink-0">🎵 Müzik</button>
+                        <button onclick="filterGroups('moda', this)" class="g-chip px-3 py-1 rounded-full smoked-glass text-zinc-300 text-[11px] shrink-0">👗 Moda</button>
+                        <button onclick="filterGroups('ask', this)" class="g-chip px-3 py-1 rounded-full smoked-glass text-zinc-300 text-[11px] shrink-0">💘 Aşk</button>
+                    </div>
+
+                    <div id="groups-container" class="space-y-2.5">
+                        <!-- JS ile doldurulur -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================================= -->
+            <!-- SEKME 4: MESAJLAR (Özel Mesajlaşma, Anlık Foto, Seri)     -->
+            <!-- ========================================================= -->
+            <section id="tab-messages" class="hidden p-3.5 pb-24 space-y-3">
+                <!-- Arama & Yakın Arkadaşlar Filtresi -->
+                <div class="flex items-center gap-2">
+                    <div class="flex-1 flex items-center gap-2 px-3 py-2 rounded-2xl smoked-glass">
+                        <i data-lucide="search" class="w-4 h-4 text-zinc-400"></i>
+                        <input id="chat-search-input" oninput="filterChats()" type="text" placeholder="Sohbet veya eşleşme ara..." class="bg-transparent text-xs text-white placeholder-zinc-500 focus:outline-none w-full">
+                    </div>
+                    <button onclick="toggleCloseFriendsFilter()" id="close-friends-btn" class="px-3 py-2 rounded-2xl smoked-glass text-[11px] font-semibold text-emerald-400 border-emerald-500/30 shrink-0">
+                        ★ Yakın Arkadaşlar
+                    </button>
+                </div>
+
+                <!-- Eşleşmeler & Günlük Seri Barı -->
+                <div class="p-3 rounded-3xl smoked-glass space-y-2">
+                    <div class="flex items-center justify-between text-[11px]">
+                        <span class="font-bold text-gold">Yeni Eşleşmeler & Günlük Seri</span>
+                        <span class="text-zinc-400">🔥 Seri Aktif</span>
+                    </div>
+                    <div id="matches-strip" class="flex gap-3 overflow-x-auto no-scrollbar">
+                        <!-- JS ile doldurulur -->
+                    </div>
+                </div>
+
+                <!-- Mesaj Listesi -->
+                <div id="chat-list-container" class="space-y-2">
+                    <!-- JS ile doldurulur -->
+                </div>
+            </section>
+
+            <!-- ========================================================= -->
+            <!-- SEKME 5: PROFİL & GÜVENLİK & PREMIUM (YAKIN GOLD)         -->
+            <!-- ========================================================= -->
+            <section id="tab-profile" class="hidden p-3.5 pb-24 space-y-3.5">
+                <!-- Kişisel Profil Kartı -->
+                <div class="p-4 rounded-[32px] gold-border-glass relative overflow-hidden">
+                    <div class="flex items-center gap-3.5">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" alt="Profil" class="w-20 h-20 rounded-3xl object-cover border-2 border-gold shadow-gold-glow">
+                            <span class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-emerald-500 border-2 border-obsidian flex items-center justify-center" title="Doğrulanmış Güvenli Profil">
+                                <i data-lucide="check" class="w-3.5 h-3.5 text-obsidian stroke-[3]"></i>
+                            </span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-1.5">
+                                <h2 class="text-lg font-extrabold text-white">Merve Demir, 25</h2>
+                            </div>
+                            <p class="text-xs text-zinc-300">Dijital Ürün Tasarımcısı • İstanbul</p>
+                            <div class="flex items-center gap-2 mt-1.5">
+                                <span class="px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold">🛡️ Güvenli Profil</span>
+                                <span class="text-[11px] text-gold font-semibold">~Yaklaşık Konum</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-zinc-300 mt-3 leading-relaxed">
+                        Minimalist tasarım, gece kahvesi, akustik müzik ve yeni rotalar keşfetmeyi seven biri ✨
+                    </p>
+
+                    <!-- Takipçi / Takip / Beğeni Özeti -->
+                    <div class="grid grid-cols-3 gap-2 mt-3.5 pt-3 border-t border-white/10 text-center">
+                        <div>
+                            <p class="text-sm font-extrabold text-white">1.280</p>
+                            <p class="text-[10px] text-zinc-400">Takipçi</p>
+                        </div>
+                        <div>
+                            <p class="text-sm font-extrabold text-white">342</p>
+                            <p class="text-[10px] text-zinc-400">Takip</p>
+                        </div>
+                        <div>
+                            <p class="text-sm font-extrabold text-gold">+24%</p>
+                            <p class="text-[10px] text-zinc-400">Aylık Artış</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gizlilik & Konum Güvenliği Kontrol Paneli -->
+                <div class="p-3.5 rounded-3xl smoked-glass space-y-3">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-gold flex items-center gap-1.5">
+                        <i data-lucide="shield-check" class="w-4 h-4"></i> Gizlilik & Güvenlik Kalkanı
+                    </h3>
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-semibold text-white">Tam Konum Yerine Yaklaşık Mesafe</p>
+                            <p class="text-[10px] text-zinc-400">Kesin adresiniz hiçbir kullanıcıya gösterilmez</p>
+                        </div>
+                        <button onclick="togglePrivacySwitch(this)" class="w-11 h-6 rounded-full bg-emerald-500 p-0.5 transition flex items-center justify-end">
+                            <span class="w-5 h-5 rounded-full bg-white shadow"></span>
+                        </button>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-white/5">
+                        <div>
+                            <p class="text-xs font-semibold text-white">Gizli Beğeni Modu</p>
+                            <p class="text-[10px] text-zinc-400">Karşılıklı eşleşme olmadan bildirim gitmez</p>
+                        </div>
+                        <button onclick="togglePrivacySwitch(this)" class="w-11 h-6 rounded-full bg-gold p-0.5 transition flex items-center justify-end">
+                            <span class="w-5 h-5 rounded-full bg-obsidian shadow"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Etkileşim Analitiği -->
+                <div class="p-3.5 rounded-3xl smoked-glass space-y-2.5">
+                    <span class="text-xs font-bold text-white">Profil İstatistikleri</span>
+                    <div class="grid grid-cols-3 gap-2 text-center">
+                        <div class="p-2.5 rounded-2xl bg-obsidian border border-white/5">
+                            <p class="text-[10px] text-zinc-400">Gönderi</p>
+                            <p class="text-sm font-extrabold text-white mt-0.5">64</p>
+                        </div>
+                        <div class="p-2.5 rounded-2xl bg-obsidian border border-white/5">
+                            <p class="text-[10px] text-zinc-400">Beğeni & Yorum</p>
+                            <p class="text-sm font-extrabold text-roseLuxury mt-0.5">4.8B</p>
+                        </div>
+                        <div class="p-2.5 rounded-2xl bg-obsidian border border-white/5">
+                            <p class="text-[10px] text-zinc-400">Profil Ziyareti</p>
+                            <p class="text-sm font-extrabold text-emerald-400 mt-0.5">912</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Premium YAKIN Gold Davet Kartı -->
+                <div onclick="openPremiumModal()" class="p-4 rounded-3xl bg-gradient-to-r from-[#231C0D] via-[#16130C] to-[#231C0D] border border-gold/40 flex items-center justify-between cursor-pointer hover:scale-[1.01] transition shadow-gold-glow">
+                    <div class="space-y-0.5">
+                        <div class="flex items-center gap-1.5 text-gold font-luxury font-bold text-sm">
+                            <i data-lucide="crown" class="w-4 h-4 fill-gold"></i>
+                            <span>YAKIN GOLD AYRICALIĞI</span>
+                        </div>
+                        <p class="text-[11px] text-zinc-300">Kimlerin beğendiğini gör, sınırsız gizli beğeni & geri al.</p>
+                    </div>
+                    <span class="px-3 py-1.5 rounded-xl bg-gold text-obsidian font-extrabold text-xs shrink-0">50 ₺'den</span>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- ALT NAVİGASYON BARI (CAM EFEKTLİ) -->
+        <nav class="absolute bottom-0 inset-x-0 z-30 smoked-glass border-t border-white/10 px-2 py-2 pb-4 sm:pb-3 flex items-center justify-around">
+            <button onclick="switchMainTab('discover')" id="nav-discover" class="nav-item flex flex-col items-center gap-1 text-gold">
+                <i data-lucide="compass" class="w-5 h-5"></i>
+                <span class="text-[10px] font-bold">Keşfet</span>
+            </button>
+            <button onclick="switchMainTab('feed')" id="nav-feed" class="nav-item flex flex-col items-center gap-1 text-zinc-400 hover:text-white">
+                <i data-lucide="flame" class="w-5 h-5"></i>
+                <span class="text-[10px] font-semibold">Akış</span>
+            </button>
+            <button onclick="switchMainTab('rooms')" id="nav-rooms" class="nav-item flex flex-col items-center gap-1 text-zinc-400 hover:text-white">
+                <i data-lucide="radio" class="w-5 h-5"></i>
+                <span class="text-[10px] font-semibold">Odalar</span>
+            </button>
+            <button onclick="switchMainTab('messages')" id="nav-messages" class="nav-item relative flex flex-col items-center gap-1 text-zinc-400 hover:text-white">
+                <i data-lucide="message-circle" class="w-5 h-5"></i>
+                <span class="text-[10px] font-semibold">Mesajlar</span>
+                <span class="absolute top-0 right-2 w-2 h-2 rounded-full bg-roseLuxury"></span>
+            </button>
+            <button onclick="switchMainTab('profile')" id="nav-profile" class="nav-item flex flex-col items-center gap-1 text-zinc-400 hover:text-white">
+                <i data-lucide="user" class="w-5 h-5"></i>
+                <span class="text-[10px] font-semibold">Profil</span>
+            </button>
+        </nav>
+
+        <!-- ========================================================= -->
+        <!-- ETKİLEŞİMLİ MODALLAR & PENCERELER                         -->
+        <!-- ========================================================= -->
+
+        <!-- 1. Eşleşme Kutlama Modalı -->
+        <div id="modal-match" class="hidden absolute inset-0 z-50 bg-obsidian/95 backdrop-blur-xl flex flex-col items-center justify-center p-6 text-center space-y-5">
+            <span class="px-3.5 py-1 rounded-full gold-border-glass text-gold text-[10px] font-extrabold tracking-[0.2em] uppercase">Karşılıklı Eşleşme</span>
+            <h2 class="font-luxury font-bold text-3xl gold-text-gradient">YAKINLAŞTINIZ ✨</h2>
+            <p id="match-desc" class="text-xs text-zinc-300 max-w-xs">İkiniz de birbirinizi beğendiniz. Şimdi özel bir mesajla sohbeti başlatın.</p>
+            <div class="flex items-center justify-center gap-4 py-2">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" class="w-24 h-24 rounded-full object-cover border-2 border-gold shadow-gold-glow">
+                <div class="w-10 h-10 rounded-full bg-roseLuxury flex items-center justify-center shadow-rose-glow">
+                    <i data-lucide="heart" class="w-5 h-5 fill-white text-white"></i>
+                </div>
+                <img id="match-avatar" src="" class="w-24 h-24 rounded-full object-cover border-2 border-roseLuxury shadow-rose-glow">
+            </div>
+            <div class="w-full space-y-2.5 pt-2">
+                <button id="match-chat-cta" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-gold to-amber-400 text-obsidian font-extrabold text-xs uppercase tracking-wider shadow-gold-glow">Özel Mesaj Gönder</button>
+                <button onclick="closeModal('modal-match')" class="w-full py-3 rounded-2xl smoked-glass text-zinc-300 text-xs font-semibold">Keşfetmeye Devam Et</button>
+            </div>
+        </div>
+
+        <!-- 2. Hikâye İzleyici Modalı -->
+        <div id="modal-story" class="hidden absolute inset-0 z-50 bg-black flex flex-col justify-between p-4">
+            <div class="space-y-2.5 z-10">
+                <div class="w-full h-1 bg-white/20 rounded-full overflow-hidden">
+                    <div id="story-progress" class="h-full bg-gold w-full transition-all duration-[4000ms] linear"></div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                        <img id="story-user-img" src="" class="w-9 h-9 rounded-full object-cover border border-gold">
+                        <div>
+                            <p id="story-user-name" class="text-xs font-bold text-white"></p>
+                            <p id="story-user-meta" class="text-[10px] text-gold"></p>
+                        </div>
+                    </div>
+                    <button onclick="closeModal('modal-story')" class="p-2 rounded-full bg-black/50 text-white"><i data-lucide="x" class="w-4 h-4"></i></button>
+                </div>
+            </div>
+            <img id="story-main-img" src="" class="absolute inset-0 w-full h-full object-cover opacity-85">
+            <div class="relative z-10 flex items-center gap-2">
+                <input id="story-reply-input" type="text" placeholder="Hikâyeye özel yanıt gönder..." class="flex-1 px-4 py-3 rounded-2xl bg-black/60 backdrop-blur-md border border-white/15 text-xs text-white placeholder-zinc-400 focus:outline-none focus:border-gold">
+                <button onclick="sendStoryReaction()" class="p-3 rounded-2xl bg-roseLuxury text-white shadow-rose-glow"><i data-lucide="heart" class="w-4 h-4 fill-white"></i></button>
+            </div>
+        </div>
+
+        <!-- 3. Özel Sohbet & Kaybolan Mesaj Penceresi -->
+        <div id="modal-chat" class="hidden absolute inset-0 z-50 bg-obsidian flex flex-col">
+            <div class="smoked-glass px-3.5 py-3 flex items-center justify-between border-b border-white/10">
+                <div class="flex items-center gap-2.5">
+                    <button onclick="closeModal('modal-chat')" class="p-1.5 rounded-xl bg-white/5 text-white"><i data-lucide="arrow-left" class="w-4 h-4"></i></button>
+                    <img id="chat-peer-avatar" src="" class="w-9 h-9 rounded-full object-cover border border-gold">
+                    <div>
+                        <h4 id="chat-peer-name" class="text-xs font-bold text-white"></h4>
+                        <p id="chat-peer-status" class="text-[10px] text-emerald-400"></p>
+                    </div>
+                </div>
+                <!-- Kaybolan Mesaj Anahtarı -->
+                <button onclick="toggleEphemeralMode()" id="ephemeral-btn" class="px-2.5 py-1.5 rounded-xl bg-white/5 border border-white/10 text-[10px] font-bold text-zinc-300 flex items-center gap-1 transition">
+                    <i data-lucide="timer" class="w-3.5 h-3.5 text-gold"></i>
+                    <span id="ephemeral-label">Kaybolan: Kapalı</span>
+                </button>
+            </div>
+
+            <div id="chat-messages-box" class="flex-1 overflow-y-auto p-3.5 space-y-2.5 no-scrollbar">
+                <!-- Mesajlar JS ile dolar -->
+            </div>
+
+            <div class="p-3 smoked-glass border-t border-white/10 flex items-center gap-2">
+                <button onclick="sendInstantPhoto()" class="p-2.5 rounded-2xl bg-roseLuxury/15 border border-roseLuxury/30 text-roseLuxury hover:bg-roseLuxury hover:text-white transition" title="Anlık Foto Gönder">
+                    <i data-lucide="camera" class="w-4 h-4"></i>
+                </button>
+                <input id="chat-msg-input" onkeypress="if(event.key==='Enter') sendChatMessage()" type="text" placeholder="Özel mesaj yaz..." class="flex-1 bg-obsidian border border-white/10 rounded-2xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-gold">
+                <button onclick="sendChatMessage()" class="p-2.5 rounded-2xl bg-gold text-obsidian font-bold">
+                    <i data-lucide="send" class="w-4 h-4"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 4. Kimler Beğendi & YAKIN Gold Premium Modalı -->
+        <div id="modal-premium" class="hidden absolute inset-0 z-50 bg-obsidian/95 backdrop-blur-xl flex flex-col justify-between p-5 overflow-y-auto">
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <span class="px-3 py-1 rounded-full gold-border-glass text-gold text-[10px] font-extrabold tracking-widest">YAKIN GOLD</span>
+                    <button onclick="closeModal('modal-premium')" class="p-2 rounded-full smoked-glass text-zinc-300"><i data-lucide="x" class="w-4 h-4"></i></button>
+                </div>
+
+                <div class="text-center space-y-1.5 pt-1">
+                    <div class="w-14 h-14 mx-auto rounded-3xl gold-border-glass flex items-center justify-center shadow-gold-glow">
+                        <i data-lucide="crown" class="w-7 h-7 text-gold fill-gold"></i>
+                    </div>
+                    <h2 class="font-luxury font-bold text-2xl gold-text-gradient">Sınırları Kaldır</h2>
+                    <p class="text-xs text-zinc-400">Seni gizlice beğenenleri anında gör, sınırsız kaydır ve öne çık.</p>
+                </div>
+
+                <!-- Kimler Beğendi Önizleme -->
+                <div class="p-3 rounded-3xl smoked-glass space-y-2">
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="font-bold text-white">Seni Beğenenler (4 Kişi)</span>
+                        <span id="likes-lock-status" class="text-[10px] text-gold font-semibold">🔒 Gold ile Netleştir</span>
+                    </div>
+                    <div id="likes-preview-grid" class="grid grid-cols-4 gap-2">
+                        <!-- JS ile doldurulur -->
+                    </div>
+                </div>
+
+                <!-- Abonelik Planları (50 TL / 150 TL / 900 TL) -->
+                <div class="space-y-2">
+                    <div onclick="selectGoldPlan('weekly', this)" class="plan-card p-3.5 rounded-2xl smoked-glass border-white/10 flex items-center justify-between cursor-pointer">
+                        <div>
+                            <p class="text-xs font-bold text-white">Haftalık Keşif</p>
+                            <p class="text-[10px] text-zinc-400">7 gün tam erişim</p>
+                        </div>
+                        <span class="text-sm font-extrabold text-gold">50 ₺</span>
+                    </div>
+                    <div onclick="selectGoldPlan('monthly', this)" class="plan-card p-3.5 rounded-2xl gold-border-glass flex items-center justify-between cursor-pointer shadow-gold-glow">
+                        <div>
+                            <div class="flex items-center gap-1.5">
+                                <p class="text-xs font-bold text-white">Aylık Lüks Paket</p>
+                                <span class="px-1.5 py-0.5 rounded bg-gold text-obsidian text-[9px] font-extrabold">POPÜLER</span>
+                            </div>
+                            <p class="text-[10px] text-zinc-300">Sınırsız beğeni + Kimler beğendi</p>
+                        </div>
+                        <span class="text-sm font-extrabold text-gold">150 ₺</span>
+                    </div>
+                    <div onclick="selectGoldPlan('yearly', this)" class="plan-card p-3.5 rounded-2xl smoked-glass border-white/10 flex items-center justify-between cursor-pointer">
+                        <div>
+                            <p class="text-xs font-bold text-white">Yıllık VIP Üyelik</p>
+                            <p class="text-[10px] text-emerald-400">%50 tasarruf + Altın Rozet</p>
+                        </div>
+                        <span class="text-sm font-extrabold text-gold">900 ₺</span>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="activateGoldMembership()" class="w-full py-3.5 mt-4 rounded-2xl bg-gradient-to-r from-gold to-amber-400 text-obsidian font-extrabold text-xs uppercase tracking-wider shadow-gold-glow">
+                YAKIN Gold'u Aktifleştir
+            </button>
+        </div>
+
+        <!-- 5. Grup İçi Topluluk & Sohbet Modalı -->
+        <div id="modal-group" class="hidden absolute inset-0 z-50 bg-obsidian flex flex-col">
+            <div class="smoked-glass px-3.5 py-3 flex items-center justify-between border-b border-white/10">
+                <div class="flex items-center gap-2.5">
+                    <button onclick="closeModal('modal-group')" class="p-1.5 rounded-xl bg-white/5 text-white"><i data-lucide="arrow-left" class="w-4 h-4"></i></button>
+                    <div>
+                        <h4 id="grp-modal-title" class="text-xs font-bold text-white"></h4>
+                        <p id="grp-modal-sub" class="text-[10px] text-gold"></p>
+                    </div>
+                </div>
+                <button onclick="showToast('Grup içi Canlı Sesli Sohbete bağlandın 🎙️')" class="px-2.5 py-1.5 rounded-xl bg-roseLuxury/20 border border-roseLuxury/40 text-roseLuxury text-[10px] font-bold">Canlı Sohbet</button>
+            </div>
+            <div id="grp-modal-feed" class="flex-1 overflow-y-auto p-3.5 space-y-2.5 no-scrollbar"></div>
+            <div class="p-3 smoked-glass border-t border-white/10 flex gap-2">
+                <input id="grp-msg-input" onkeypress="if(event.key==='Enter') postToGroup()" type="text" placeholder="Gruba mesaj veya öneri yaz..." class="flex-1 bg-obsidian border border-white/10 rounded-2xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-gold">
+                <button onclick="postToGroup()" class="px-4 py-2 rounded-2xl bg-gold text-obsidian font-bold text-xs">Gönder</button>
+            </div>
+        </div>
+
+        <!-- 6. Canlı Oda Dinleyici Modalı -->
+        <div id="modal-liveroom" class="hidden absolute inset-0 z-50 bg-obsidian/95 backdrop-blur-xl flex flex-col justify-between p-5">
+            <div class="flex items-center justify-between">
+                <span class="px-2.5 py-1 rounded-full bg-roseLuxury text-[10px] font-extrabold uppercase">Canlı Yayın Aktif</span>
+                <button onclick="closeModal('modal-liveroom')" class="p-2 rounded-full smoked-glass text-white"><i data-lucide="x" class="w-4 h-4"></i></button>
+            </div>
+            <div class="text-center space-y-4">
+                <div class="w-24 h-24 mx-auto rounded-full gold-border-glass flex items-center justify-center shadow-gold-glow">
+                    <div class="flex items-end gap-1 h-8">
+                        <span class="w-1.5 bg-gold rounded-full wave-bar"></span>
+                        <span class="w-1.5 bg-gold rounded-full wave-bar"></span>
+                        <span class="w-1.5 bg-gold rounded-full wave-bar"></span>
+                        <span class="w-1.5 bg-gold rounded-full wave-bar"></span>
+                        <span class="w-1.5 bg-gold rounded-full wave-bar"></span>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="lr-title" class="text-lg font-extrabold text-white"></h3>
+                    <p id="lr-host" class="text-xs text-gold mt-1"></p>
+                </div>
+                <p class="text-xs text-zinc-400 max-w-xs mx-auto">Yakın çevrendeki topluluk üyeleriyle gerçek zamanlı sesli sohbet odasındasın.</p>
+            </div>
+            <div class="flex gap-2.5">
+                <button onclick="showToast('Söz isteme talebin moderatöre iletildi ✋')" class="flex-1 py-3.5 rounded-2xl gold-border-glass text-gold font-bold text-xs">✋ Söz İste</button>
+                <button onclick="closeModal('modal-liveroom')" class="flex-1 py-3.5 rounded-2xl bg-roseLuxury text-white font-bold text-xs">Odadan Ayrıl</button>
+            </div>
+        </div>
+
+        <!-- Bildirim Toast Mesajı -->
+        <div id="toast-box" class="pointer-events-none opacity-0 transition-opacity duration-300 absolute top-16 inset-x-4 z-50 flex justify-center">
+            <div id="toast-msg" class="px-4 py-2.5 rounded-2xl gold-border-glass text-xs font-semibold text-white shadow-2xl text-center"></div>
+        </div>
+
+    </div>
+
+    <script>
+        // ==================== VERİ SETLERİ ====================
+        const discoverProfiles = [
+            {
+                id: 1,
+                name: 'Selin Kaya',
+                age: 24,
+                role: 'Mimar & Fotoğrafçı',
+                approxDist: '~1.2 km yakınında',
+                verified: true,
+                bio: 'Gece yürüyüşleri, üçüncü dalga kahve ve caz plakları. Şehirde yeni sergiler keşfetmeye var mısın?',
+                interests: ['🏛️ Mimari', '☕ Kahve', '🎷 Caz', '📸 Analog'],
+                img: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=85'
+            },
+            {
+                id: 2,
+                name: 'Kaan Yılmaz',
+                age: 27,
+                role: 'Müzik Prodüktörü',
+                approxDist: '~2.4 km yakınında',
+                verified: true,
+                bio: 'Akustik gitar, gece stüdyo kayıtları ve sahil rotaları. İyi bir sohbet her zaman en iyi başlangıçtır.',
+                interests: ['🎸 Akustik', '🌊 Sahil', '🎬 Sinema', '✈️ Seyahat'],
+                img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=85'
+            },
+            {
+                id: 3,
+                name: 'Dilara Özkan',
+                age: 23,
+                role: 'Sanat Yönetmeni',
+                approxDist: '~900 m yakınında',
+                verified: true,
+                bio: 'Siyah estetik, çağdaş sanat galerileri ve dünya edebiyatı. Ortak zevklerimiz varsa mutlaka denk gelelim.',
+                interests: ['🎨 Sanat', '📚 Edebiyat', '🍷 Gastronomi', '👗 Moda'],
+                img: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=85'
+            },
+            {
+                id: 4,
+                name: 'Emirhan Aksoy',
+                age: 26,
+                role: 'Yazılım Mimarı',
+                approxDist: '~3.8 km yakınında',
+                verified: true,
+                bio: 'Minimalist yaşam, gece sürüşleri ve yeni kahve durakları. Samimi ve gerçek bağlantılar için buradayım.',
+                interests: ['💻 Teknoloji', '🏎️ Sürüş', '🏋️ Spor', '🎧 Elektronik'],
+                img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=85'
+            }
+        ];
+
+        const storiesData = [
+            { id: 1, name: 'Senin Hikâyen', duration: '+ Ekle', isOwn: true, img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80', storyImg: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80', meta: 'Şimdi • 48s Özel Süre' },
+            { id: 2, name: 'Selin', duration: '48s', isOwn: false, img: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80', storyImg: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80', meta: '15 dk önce • ~1.2 km' },
+            { id: 3, name: 'Kaan', duration: '24s', isOwn: false, img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80', storyImg: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80', meta: '42 dk önce • ~2.4 km' },
+            { id: 4, name: 'Dilara', duration: '48s', isOwn: false, img: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80', storyImg: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80', meta: '1 sa önce • ~900 m' }
+        ];
+
+        const postsData = [
+            {
+                id: 1,
+                user: 'Selin Kaya',
+                approxDist: '~1.2 km yakınında',
+                avatar: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80',
+                media: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=85',
+                caption: 'Gece ışıkları altında sakin bir mola. İstanbul\'un en sevdiğim saatleri ✨🖤',
+                likes: 342,
+                liked: false,
+                saved: false,
+                following: false
+            },
+            {
+                id: 2,
+                user: 'Emirhan Aksoy',
+                approxDist: '~3.8 km yakınında',
+                avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80',
+                media: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=85',
+                caption: 'Hafta sonu akustik gecesinden kalan kareler. Katılan herkese teşekkürler 🎶',
+                likes: 218,
+                liked: true,
+                saved: false,
+                following: true
+            }
+        ];
+
+        const reelsData = [
+            {
+                id: 1,
+                user: 'Dilara Özkan',
+                approxDist: '~900 m yakınında',
+                title: 'Gece Boğaz Turu & Siyah Estetik 🌃',
+                img: 'https://images.unsplash.com/photo-1527838832700-5059252407fa?auto=format&fit=crop&w=800&q=85',
+                views: '14.2B',
+                likes: 890
+            },
+            {
+                id: 2,
+                user: 'Kaan Yılmaz',
+                approxDist: '~2.4 km yakınında',
+                title: 'Stüdyoda Gece Yarısı Akustik Kayıt 🎸',
+                img: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=800&q=85',
+                views: '9.8B',
+                likes: 615
+            }
+        ];
+
+        const threadsData = [
+            {
+                id: 1,
+                user: 'Dilara Özkan',
+                cat: 'trend',
+                time: '10 dk önce • ~900 m',
+                perm: 'Herkes yanıtlayabilir',
+                hidden: false,
+                expanded: false,
+                text: 'Bu akşam yakın çevredeki topluluk üyeleriyle nerede buluşalım? Canlı ankette oyunuzu kullanın, sonuçlar anında güncelleniyor!',
+                poll: {
+                    dur: '24s',
+                    voted: null,
+                    options: [
+                        { label: 'Karaköy 3. Dalga Kahve & Sohbet', votes: 48 },
+                        { label: 'Moda Akustik Canlı Müzik', votes: 62 }
+                    ]
+                },
+                chain: ['1/2: Buluşma 20:30\'da başlıyor, katılmak isteyenler yanıt bırakabilir.'],
+                replies: ['Selin: Moda akustik harika fikir!'],
+                quote: null,
+                tag: null,
+                likes: 94
+            },
+            {
+                id: 2,
+                user: 'Emirhan Aksoy',
+                cat: 'interest',
+                time: '35 dk önce • ~3.8 km',
+                perm: 'Takipçilere özel yanıt',
+                hidden: false,
+                expanded: false,
+                text: 'Gerçek sosyal deneyimin sırrı tam konum paylaşmak değil, ortak ilgi alanlarında güvenli bir atmosfer kurmaktır. Kitap, müzik ve tasarım üzerine kurduğumuz küçük YAKIN grupları şehirdeki en samimi topluluklara dönüştü.',
+                poll: null,
+                chain: [],
+                replies: [],
+                quote: 'Kaan Yılmaz: "Yeni dönem akustik buluşmalar başlıyor 🎧"',
+                tag: '🔗 yakins.app/topluluk-rehberi',
+                likes: 128
+            }
+        ];
+
+        const groupsData = [
+            { id: 'g1', cat: 'kitap', icon: '📚', title: 'Gece Okurları & Kitap Kulübü', meta: '412 Üye • ~Yakın Çevre', posts: ['Dilara: Bu hafta Gece Yarısı Kütüphanesi üzerine konuşuyoruz 📖', 'Selin: Pazar 15:00 kahve buluşması kesinleşti!'] },
+            { id: 'g2', cat: 'muzik', icon: '🎵', title: 'Akustik, Caz & Konser Tayfası', meta: '580 Üye • ~Yakın Çevre', posts: ['Kaan: Cuma akşamı açık hava konseri için 2 yedek biletim var 🎸'] },
+            { id: 'g3', cat: 'moda', icon: '👗', title: 'Siyah Lüks & Minimalist Stil', meta: '325 Üye • ~Yakın Çevre', posts: ['Merve: Sonbahar siyah kapsül gardırop önerileri ✨'] },
+            { id: 'g4', cat: 'ask', icon: '💘', title: 'Aşk, İlişkiler & İlk Buluşma', meta: '740 Üye • ~Yakın Çevre', posts: ['Elif: Gün batımında en iyi ilk buluşma rotaları 🌹'] }
+        ];
+
+        const chatsData = [
+            {
+                id: 1,
+                name: 'Selin Kaya',
+                approxDist: '~1.2 km',
+                streak: 14,
+                closeFriend: true,
+                unread: true,
+                lastMsg: 'Bu akşam kahve planı hâlâ geçerli mi? ☕',
+                avatar: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80',
+                messages: [
+                    { from: 'peer', text: 'Selam Merve! Profilindeki mimari fotoğraflar harika görünüyor ✨' },
+                    { from: 'me', text: 'Çok teşekkürler Selin! Senin analog karelerin de çok etkileyici.' },
+                    { from: 'peer', text: 'Bu akşam kahve planı hâlâ geçerli mi? ☕' }
+                ]
+            },
+            {
+                id: 2,
+                name: 'Kaan Yılmaz',
+                approxDist: '~2.4 km',
+                streak: 7,
+                closeFriend: false,
+                unread: false,
+                lastMsg: 'Yeni akustik kaydı sana da gönderdim 🎸',
+                avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=200&q=80',
+                messages: [
+                    { from: 'peer', text: 'Yeni akustik kaydı sana da gönderdim 🎸' }
+                ]
+            },
+            {
+                id: 3,
+                name: 'Dilara Özkan',
+                approxDist: '~900 m',
+                streak: 21,
+                closeFriend: true,
+                unread: false,
+                lastMsg: 'Kitap kulübünde görüşürüz 📚',
+                avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=80',
+                messages: [
+                    { from: 'peer', text: 'Kitap kulübünde görüşürüz 📚' }
+                ]
+            }
+        ];
+
+        // ==================== UYGULAMA DURUMU (STATE) ====================
+        let currentProfileIdx = 0;
+        let currentRadius = 5;
+        let isGoldMember = false;
+        let ephemeralEnabled = false;
+        let activeChatObj = null;
+        let activeGroupObj = null;
+        let onlyCloseFriends = false;
+        let currentThreadFilter = 'all';
+        let pendingThreadTag = null;
+
+        // ==================== BAŞLATMA ====================
+        window.onload = function() {
+            renderNearbyStrip();
+            renderSwipeCard();
+            renderStories();
+            renderPosts();
+            renderReels();
+            renderThreads();
+            renderGroups('all');
+            renderChats();
+            renderLikesGrid();
+            lucide.createIcons();
+        };
+
+        // ==================== PLATFORM & GENEL UI ====================
+        function setPlatformMode(mode) {
+            const iosBtn = document.getElementById('btn-plat-ios');
+            const andBtn = document.getElementById('btn-plat-android');
+            const notch = document.getElementById('device-notch');
+            if (mode === 'ios') {
+                iosBtn.className = 'text-white font-semibold flex items-center gap-1 transition';
+                andBtn.className = 'text-zinc-400 hover:text-white flex items-center gap-1 transition';
+                notch.className = 'w-24 h-5 bg-black rounded-full border border-white/5 flex items-center justify-end px-2';
+                showToast(' iPhone (iOS) arayüz görünümü aktif');
+            } else {
+                andBtn.className = 'text-white font-semibold flex items-center gap-1 transition';
+                iosBtn.className = 'text-zinc-400 hover:text-white flex items-center gap-1 transition';
+                notch.className = 'w-4 h-4 bg-black rounded-full border border-white/10 flex items-center justify-center';
+                showToast('🤖 Android Material Dark görünümü aktif');
+            }
+        }
+
+        function switchMainTab(tab) {
+            ['discover', 'feed', 'rooms', 'messages', 'profile'].forEach(t => {
+                document.getElementById('tab-' + t).classList.add('hidden');
+                const nav = document.getElementById('nav-' + t);
+                nav.classList.remove('text-gold');
+                nav.classList.add('text-zinc-400');
+            });
+            document.getElementById('tab-' + tab).classList.remove('hidden');
+            const activeNav = document.getElementById('nav-' + tab);
+            activeNav.classList.remove('text-zinc-400');
+            activeNav.classList.add('text-gold');
+            lucide.createIcons();
+        }
+
+        function showToast(msg) {
+            const box = document.getElementById('toast-box');
+            document.getElementById('toast-msg').textContent = msg;
+            box.classList.remove('opacity-0');
+            clearTimeout(window._toastTimer);
+            window._toastTimer = setTimeout(() => box.classList.add('opacity-0'), 2400);
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        // ==================== SEKME 1: KEŞFET & RADAR ====================
+        function setRadius(km, btn) {
+            currentRadius = km;
+            document.querySelectorAll('.rad-btn').forEach(b => {
+                b.className = 'rad-btn px-2 py-1 rounded-lg text-[10px] font-semibold text-zinc-400';
+            });
+            btn.className = 'rad-btn px-2 py-1 rounded-lg text-[10px] font-bold bg-gold text-obsidian';
+            document.getElementById('header-privacy-text').textContent = `~${km} km • Tam Konum Gizli`;
+            showToast(`Keşif yarıçapı ~${km} km olarak güncellendi 🛡️`);
+        }
+
+        function renderNearbyStrip() {
+            const strip = document.getElementById('nearby-strip');
+            strip.innerHTML = discoverProfiles.map((p, idx) => `
+                <button onclick="jumpToProfile(${idx})" class="flex items-center gap-2 px-2.5 py-1.5 rounded-2xl bg-obsidian/90 border border-white/10 hover:border-gold/40 shrink-0 transition">
+                    <img src="${p.img}" class="w-7 h-7 rounded-full object-cover border border-gold/60">
+                    <div class="text-left">
+                        <p class="text-[11px] font-bold text-white leading-tight">${p.name.split(' ')[0]}</p>
+                        <p class="text-[9px] text-gold leading-tight">${p.approxDist.replace(' yakınında', '')}</p>
+                    </div>
+                </button>
+            `).join('');
+        }
+
+        function jumpToProfile(idx) {
+            currentProfileIdx = idx;
+            renderSwipeCard();
+        }
+
+        function renderSwipeCard() {
+            const wrapper = document.getElementById('swipe-card-wrapper');
+            const p = discoverProfiles[currentProfileIdx % discoverProfiles.length];
+            wrapper.innerHTML = `
+                <img src="${p.img}" alt="${p.name}" class="absolute inset-0 w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/45 to-transparent"></div>
+
+                <!-- Üst Rozetler: Yaklaşık Mesafe & Doğrulanmış Profil -->
+                <div class="absolute top-3.5 inset-x-3.5 flex items-center justify-between">
+                    <span class="px-3 py-1 rounded-full smoked-glass text-[11px] font-semibold text-gold flex items-center gap-1.5">
+                        <i data-lucide="map-pin" class="w-3 h-3 text-roseLuxury"></i> ${p.approxDist}
+                    </span>
+                    <span class="px-2.5 py-1 rounded-full bg-emerald-500/20 backdrop-blur-md border border-emerald-400/40 text-emerald-300 text-[10px] font-bold flex items-center gap-1">
+                        <i data-lucide="badge-check" class="w-3.5 h-3.5"></i> Doğrulanmış
+                    </span>
+                </div>
+
+                <!-- Alt Profil Bilgileri -->
+                <div class="absolute bottom-0 inset-x-0 p-4 space-y-2.5">
+                    <div>
+                        <div class="flex items-baseline gap-2">
+                            <h2 class="text-2xl font-extrabold text-white">${p.name}, ${p.age}</h2>
+                        </div>
+                        <p class="text-xs text-gold font-medium">${p.role}</p>
+                    </div>
+                    <p class="text-xs text-zinc-200 leading-relaxed line-clamp-2">${p.bio}</p>
+                    <div class="flex flex-wrap gap-1.5 pt-0.5">
+                        ${p.interests.map(tag => `<span class="px-2.5 py-1 rounded-xl smoked-glass text-[10px] font-medium text-zinc-200">${tag}</span>`).join('')}
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        function handleSwipe(action) {
+            const wrapper = document.getElementById('swipe-card-wrapper');
+            const p = discoverProfiles[currentProfileIdx % discoverProfiles.length];
+
+            if (action === 'pass') {
+                wrapper.style.transform = 'translateX(-110%) rotate(-8deg)';
+                wrapper.style.opacity = '0.3';
+            } else if (action === 'secret') {
+                wrapper.style.transform = 'translateY(-40px) scale(0.96)';
+                showToast(`🔒 ${p.name} için Gizli Beğeni gönderildi! Karşılıklı olursa bildirim gider.`);
+            } else if (action === 'like') {
+                wrapper.style.transform = 'translateX(110%) rotate(8deg)';
+                wrapper.style.opacity = '0.3';
+                // Her 2 beğenide bir eşleşme kutlaması göster
+                if (currentProfileIdx % 2 === 0) {
+                    setTimeout(() => triggerMatchPopup(p), 280);
+                } else {
+                    showToast(`❤️ ${p.name} beğenildi!`);
+                }
+            }
+
+            setTimeout(() => {
+                currentProfileIdx++;
+                wrapper.style.transition = 'none';
+                wrapper.style.transform = 'translateX(0) rotate(0)';
+                wrapper.style.opacity = '1';
+                renderSwipeCard();
+                requestAnimationFrame(() => {
+                    wrapper.style.transition = 'transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease';
+                });
+            }, 260);
+        }
+
+        function rewindProfile() {
+            currentProfileIdx = (currentProfileIdx - 1 + discoverProfiles.length) % discoverProfiles.length;
+            renderSwipeCard();
+            showToast('↩️ Önceki profile geri dönüldü');
+        }
+
+        function triggerMatchPopup(profile) {
+            document.getElementById('match-avatar').src = profile.img;
+            document.getElementById('match-desc').textContent = `${profile.name} (${profile.approxDist}) ile karşılıklı beğeni sağladınız.`;
+            document.getElementById('match-chat-cta').onclick = () => {
+                closeModal('modal-match');
+                switchMainTab('messages');
+                openChatWith(profile.name, profile.img, profile.approxDist);
+            };
+            document.getElementById('modal-match').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        // ==================== SEKME 2: AKIŞ (HİKAYE, POST, REELS, GÜNDEM) ====================
+        function renderStories() {
+            const bar = document.getElementById('stories-bar');
+            bar.innerHTML = storiesData.map((s, i) => `
+                <button onclick="openStory(${i})" class="flex flex-col items-center gap-1.5 shrink-0 group">
+                    <div class="relative p-[2px] rounded-full ${s.isOwn ? 'bg-white/20' : 'bg-gradient-to-tr from-gold via-amber-300 to-roseLuxury'}">
+                        <img src="${s.img}" class="w-14 h-14 rounded-full object-cover border-2 border-obsidian group-hover:scale-95 transition">
+                        <span class="absolute -bottom-1 right-0 px-1.5 py-0.2 rounded-md bg-obsidian border border-gold/50 text-[8px] font-extrabold text-gold">${s.duration}</span>
+                    </div>
+                    <span class="text-[10px] font-medium text-zinc-300">${s.name}</span>
+                </button>
+            `).join('');
+        }
+
+        function openStory(idx) {
+            const s = storiesData[idx];
+            document.getElementById('story-user-img').src = s.img;
+            document.getElementById('story-user-name').textContent = s.name;
+            document.getElementById('story-user-meta').textContent = s.meta;
+            document.getElementById('story-main-img').src = s.storyImg;
+            document.getElementById('modal-story').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function sendStoryReaction() {
+            const inp = document.getElementById('story-reply-input');
+            showToast(inp.value.trim() ? 'Hikâyeye özel yanıt gönderildi 💬' : 'Hikâyeye ❤️ gönderildi!');
+            inp.value = '';
+            closeModal('modal-story');
+        }
+
+        function switchFeedMode(mode) {
+            ['posts', 'reels', 'threads'].forEach(m => {
+                document.getElementById('feed-view-' + m).classList.add('hidden');
+                document.getElementById('fmode-' + m).className = 'py-2 rounded-xl text-zinc-400 text-xs font-semibold hover:text-white transition';
+            });
+            document.getElementById('feed-view-' + mode).classList.remove('hidden');
+            document.getElementById('fmode-' + mode).className = 'py-2 rounded-xl bg-gold text-obsidian text-xs font-bold transition';
+            lucide.createIcons();
+        }
+
+        function renderPosts() {
+            const box = document.getElementById('feed-view-posts');
+            box.innerHTML = postsData.map((p, idx) => `
+                <article class="rounded-3xl smoked-glass overflow-hidden border border-white/10">
+                    <div class="p-3 flex items-center justify-between">
+                        <div class="flex items-center gap-2.5">
+                            <img src="${p.avatar}" class="w-9 h-9 rounded-full object-cover border border-gold/60">
+                            <div>
+                                <h4 class="text-xs font-bold text-white">${p.user}</h4>
+                                <p class="text-[10px] text-gold">${p.approxDist}</p>
+                            </div>
+                        </div>
+                        <button onclick="toggleFollowPost(${idx})" class="px-3 py-1 rounded-xl text-[11px] font-bold ${p.following ? 'bg-white/10 text-zinc-300' : 'bg-gold/15 border border-gold/40 text-gold'}">
+                            ${p.following ? 'Takipte ✓' : '+ Takip Et'}
+                        </button>
+                    </div>
+                    <div ondblclick="doubleTapLike(${idx}, this)" class="relative aspect-[4/3] bg-black overflow-hidden cursor-pointer">
+                        <img src="${p.media}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-3.5 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-4">
+                                <button onclick="toggleLikePost(${idx})" class="flex items-center gap-1 text-xs font-bold ${p.liked ? 'text-roseLuxury' : 'text-zinc-300'}">
+                                    <i data-lucide="heart" class="w-4 h-4 ${p.liked ? 'fill-roseLuxury' : ''}"></i> ${p.likes}
+                                </button>
+                                <button onclick="showToast('Yorum penceresi açıldı 💬')" class="flex items-center gap-1 text-xs text-zinc-300">
+                                    <i data-lucide="message-circle" class="w-4 h-4"></i> Yorum
+                                </button>
+                            </div>
+                            <button onclick="toggleSavePost(${idx})" class="${p.saved ? 'text-gold' : 'text-zinc-400'}">
+                                <i data-lucide="bookmark" class="w-4 h-4 ${p.saved ? 'fill-gold' : ''}"></i>
+                            </button>
+                        </div>
+                        <p class="text-xs text-zinc-200 leading-relaxed"><strong class="text-white">${p.user}</strong> ${p.caption}</p>
+                    </div>
+                </article>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function doubleTapLike(idx, el) {
+            if (!postsData[idx].liked) {
+                postsData[idx].liked = true;
+                postsData[idx].likes++;
+                renderPosts();
+            }
+            showToast('❤️ Gönderi beğenildi!');
+        }
+
+        function toggleLikePost(idx) {
+            postsData[idx].liked = !postsData[idx].liked;
+            postsData[idx].likes += postsData[idx].liked ? 1 : -1;
+            renderPosts();
+        }
+
+        function toggleSavePost(idx) {
+            postsData[idx].saved = !postsData[idx].saved;
+            renderPosts();
+            showToast(postsData[idx].saved ? 'Koleksiyona kaydedildi 🔖' : 'Kaydedilenlerden çıkarıldı');
+        }
+
+        function toggleFollowPost(idx) {
+            postsData[idx].following = !postsData[idx].following;
+            renderPosts();
+        }
+
+        function renderReels() {
+            const box = document.getElementById('feed-view-reels');
+            box.innerHTML = reelsData.map(r => `
+                <div class="relative h-[420px] rounded-3xl overflow-hidden border border-white/10">
+                    <img src="${r.img}" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-black/30"></div>
+                    <div class="absolute top-3 left-3 px-2.5 py-1 rounded-full smoked-glass text-[10px] font-bold text-gold flex items-center gap-1">
+                        <i data-lucide="play" class="w-3 h-3 fill-gold"></i> REELS • ${r.views} izlenme
+                    </div>
+                    <div class="absolute bottom-3.5 inset-x-3.5 flex items-end justify-between">
+                        <div class="space-y-1">
+                            <p class="text-xs font-extrabold text-white">${r.user} <span class="text-gold font-normal">• ${r.approxDist}</span></p>
+                            <p class="text-xs text-zinc-200">${r.title}</p>
+                        </div>
+                        <button onclick="showToast('Reels videosu beğenildi ❤️')" class="p-3 rounded-2xl smoked-glass text-roseLuxury flex flex-col items-center">
+                            <i data-lucide="heart" class="w-5 h-5 fill-roseLuxury"></i>
+                            <span class="text-[10px] font-bold text-white mt-0.5">${r.likes}</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        // Gündem & Konular (Threads) Fonksiyonları
+        function renderThreads() {
+            const box = document.getElementById('threads-container');
+            const list = threadsData.filter(t => !t.hidden && (currentThreadFilter === 'all' || t.cat === currentThreadFilter));
+
+            box.innerHTML = list.map(t => {
+                const idx = threadsData.findIndex(item => item.id === t.id);
+                const isLong = t.text.length > 130;
+                const shownText = (isLong && !t.expanded) ? t.text.slice(0, 130) + '...' : t.text;
+
+                let pollHtml = '';
+                if (t.poll) {
+                    const total = t.poll.options.reduce((a, b) => a + b.votes, 0);
+                    pollHtml = `
+                        <div class="p-2.5 rounded-2xl bg-obsidian/90 border border-gold/25 space-y-1.5">
+                            <div class="flex justify-between text-[10px] text-gold font-bold">
+                                <span>📊 Canlı Anket (${total} oy)</span>
+                                <span>⏱️ ${t.poll.dur}</span>
+                            </div>
+                            ${t.poll.options.map((o, oIdx) => {
+                                const pct = total ? Math.round((o.votes / total) * 100) : 0;
+                                const voted = t.poll.voted === oIdx;
+                                return `
+                                    <button onclick="votePoll(${idx}, ${oIdx})" class="relative w-full text-left p-2 rounded-xl border ${voted ? 'border-gold bg-gold/15' : 'border-white/10 bg-smoked'} overflow-hidden">
+                                        <div class="absolute inset-y-0 left-0 bg-gold/20 transition-all" style="width:${t.poll.voted !== null ? pct : 0}%"></div>
+                                        <div class="relative flex justify-between text-[11px]">
+                                            <span class="text-white">${o.label}</span>
+                                            ${t.poll.voted !== null ? `<span class="text-gold font-bold">%${pct}</span>` : ''}
+                                        </div>
+                                    </button>
+                                `;
+                            }).join('')}
+                        </div>
+                    `;
+                }
+
+                return `
+                    <div class="p-3.5 rounded-3xl smoked-glass space-y-2.5">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h4 class="text-xs font-bold text-white">${t.user}</h4>
+                                <p class="text-[10px] text-zinc-400">${t.time} • <span class="text-gold">${t.perm}</span></p>
+                            </div>
+                            <button onclick="hideThread(${idx})" class="text-[10px] text-zinc-500 hover:text-roseLuxury px-2 py-1 rounded-lg bg-white/5">Gizle</button>
+                        </div>
+
+                        <p class="text-xs text-zinc-200 leading-relaxed">
+                            ${shownText}
+                            ${isLong ? `<button onclick="toggleThreadExpand(${idx})" class="text-gold font-bold ml-1">${t.expanded ? 'Daralt' : 'Devamını oku'}</button>` : ''}
+                        </p>
+
+                        ${t.tag ? `<div class="px-2.5 py-1.5 rounded-xl bg-obsidian text-[11px] text-gold border border-white/5">${t.tag}</div>` : ''}
+                        ${t.quote ? `<div class="p-2.5 rounded-xl bg-obsidian/80 border-l-2 border-roseLuxury text-[11px] text-zinc-300">${t.quote}</div>` : ''}
+                        ${pollHtml}
+
+                        ${t.chain.length ? `<div class="pl-2.5 border-l-2 border-gold/50 space-y-1">${t.chain.map(c => `<p class="text-[11px] text-zinc-300 bg-obsidian/60 p-2 rounded-xl">${c}</p>`).join('')}</div>` : ''}
+                        ${t.replies.length ? `<div class="space-y-1 pt-1 border-t border-white/5">${t.replies.map(r => `<p class="text-[11px] text-zinc-400">↳ ${r}</p>`).join('')}</div>` : ''}
+
+                        <div class="flex items-center justify-between pt-1.5 border-t border-white/5 text-[11px] text-zinc-400">
+                            <div class="flex items-center gap-3">
+                                <button onclick="likeThreadItem(${idx})" class="hover:text-roseLuxury">❤️ ${t.likes}</button>
+                                <button onclick="replyThreadItem(${idx})" class="hover:text-gold">💬 Yanıtla</button>
+                                <button onclick="chainThreadItem(${idx})" class="hover:text-emerald-400">🧵 Zincir</button>
+                            </div>
+                            <button onclick="quoteThreadItem(${idx})" class="text-gold font-semibold">🔁 Alıntıla</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function filterThreads(cat, btn) {
+            currentThreadFilter = cat;
+            document.querySelectorAll('.t-chip').forEach(c => c.className = 't-chip px-3 py-1 rounded-full smoked-glass text-zinc-300 text-[11px] shrink-0');
+            btn.className = 't-chip px-3 py-1 rounded-full bg-gold text-obsidian text-[11px] font-bold shrink-0';
+            renderThreads();
+        }
+
+        function toggleThreadPollBox() {
+            document.getElementById('thread-poll-box').classList.toggle('hidden');
+        }
+
+        function attachThreadTag(label) {
+            pendingThreadTag = label;
+            const prev = document.getElementById('thread-tag-preview');
+            prev.textContent = label;
+            prev.classList.remove('hidden');
+        }
+
+        function publishThread() {
+            const txt = document.getElementById('thread-text-input').value.trim();
+            const perm = document.getElementById('thread-perm').value;
+            const p1 = document.getElementById('poll-in-1').value.trim();
+            const p2 = document.getElementById('poll-in-2').value.trim();
+            const dur = document.getElementById('thread-poll-dur').value;
+
+            if (!txt && (!p1 || !p2)) return;
+
+            let poll = null;
+            if (!document.getElementById('thread-poll-box').classList.contains('hidden') && p1 && p2) {
+                poll = { dur, voted: null, options: [{ label: p1, votes: 1 }, { label: p2, votes: 1 }] };
+            }
+
+            threadsData.unshift({
+                id: Date.now(),
+                user: 'Merve Demir (Sen)',
+                cat: 'trend',
+                time: 'Şimdi • Yakınımda',
+                perm,
+                hidden: false,
+                expanded: false,
+                text: txt || 'Yeni topluluk anketi başladı 👇',
+                poll,
+                chain: [],
+                replies: [],
+                quote: null,
+                tag: pendingThreadTag,
+                likes: 1
+            });
+
+            document.getElementById('thread-text-input').value = '';
+            document.getElementById('poll-in-1').value = '';
+            document.getElementById('poll-in-2').value = '';
+            document.getElementById('thread-poll-box').classList.add('hidden');
+            document.getElementById('thread-tag-preview').classList.add('hidden');
+            pendingThreadTag = null;
+            renderThreads();
+            showToast('Gündem gönderin yayınlandı ✨');
+        }
+
+        function votePoll(tIdx, oIdx) {
+            const poll = threadsData[tIdx].poll;
+            if (poll.voted !== null) poll.options[poll.voted].votes--;
+            poll.voted = oIdx;
+            poll.options[oIdx].votes++;
+            renderThreads();
+        }
+
+        function toggleThreadExpand(idx) {
+            threadsData[idx].expanded = !threadsData[idx].expanded;
+            renderThreads();
+        }
+
+        function hideThread(idx) {
+            threadsData[idx].hidden = true;
+            renderThreads();
+            showToast('Gönderi gizlendi');
+        }
+
+        function likeThreadItem(idx) {
+            threadsData[idx].likes++;
+            renderThreads();
+        }
+
+        function replyThreadItem(idx) {
+            if (threadsData[idx].perm === 'Yanıtlar kapalı') {
+                showToast('🔒 Bu gönderi yanıtlara kapalı');
+                return;
+            }
+            threadsData[idx].replies.push('Sen: Harika bir konu, kesinlikle katılıyorum ✨');
+            renderThreads();
+        }
+
+        function chainThreadItem(idx) {
+            threadsData[idx].chain.push(`Zincir #${threadsData[idx].chain.length + 1}: Konu detayları ve topluluk notları eklendi.`);
+            renderThreads();
+            showToast('Konuşma zincirine eklendi 🧵');
+        }
+
+        function quoteThreadItem(idx) {
+            const target = threadsData[idx];
+            threadsData.unshift({
+                id: Date.now(),
+                user: 'Merve Demir (Sen)',
+                cat: 'trend',
+                time: 'Şimdi • Alıntı',
+                perm: 'Herkes yanıtlayabilir',
+                hidden: false,
+                expanded: false,
+                text: 'Kesinlikle göz atılması gereken bir paylaşım 🔥',
+                poll: null,
+                chain: [],
+                replies: [],
+                quote: `${target.user}: "${target.text.slice(0, 80)}..."`,
+                tag: null,
+                likes: 1
+            });
+            renderThreads();
+            showToast('Alıntılayarak paylaşıldı 🔁');
+        }
+
+        // ==================== SEKME 3: ODALAR & GRUPLAR ====================
+        function renderGroups(cat) {
+            const box = document.getElementById('groups-container');
+            const list = cat === 'all' ? groupsData : groupsData.filter(g => g.cat === cat);
+            box.innerHTML = list.map(g => `
+                <div class="p-3.5 rounded-3xl smoked-glass flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-11 h-11 rounded-2xl gold-border-glass flex items-center justify-center text-xl">${g.icon}</div>
+                        <div>
+                            <h4 class="text-xs font-bold text-white">${g.title}</h4>
+                            <p class="text-[10px] text-zinc-400 mt-0.5">${g.meta}</p>
+                        </div>
+                    </div>
+                    <button onclick="openGroupModal('${g.id}')" class="px-3 py-1.5 rounded-xl bg-gold/15 border border-gold/40 text-gold text-[11px] font-bold hover:bg-gold hover:text-obsidian transition">Katıl</button>
+                </div>
+            `).join('');
+        }
+
+        function filterGroups(cat, btn) {
+            document.querySelectorAll('.g-chip').forEach(c => c.className = 'g-chip px-3 py-1 rounded-full smoked-glass text-zinc-300 text-[11px] shrink-0');
+            btn.className = 'g-chip px-3 py-1 rounded-full bg-gold text-obsidian text-[11px] font-bold shrink-0';
+            renderGroups(cat);
+        }
+
+        function openGroupModal(id) {
+            activeGroupObj = groupsData.find(g => g.id === id);
+            document.getElementById('grp-modal-title').textContent = `${activeGroupObj.icon} ${activeGroupObj.title}`;
+            document.getElementById('grp-modal-sub').textContent = activeGroupObj.meta;
+            renderGroupPosts();
+            document.getElementById('modal-group').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function renderGroupPosts() {
+            document.getElementById('grp-modal-feed').innerHTML = activeGroupObj.posts.map(p => `
+                <div class="p-3 rounded-2xl smoked-glass text-xs text-zinc-200">${p}</div>
+            `).join('');
+        }
+
+        function postToGroup() {
+            const inp = document.getElementById('grp-msg-input');
+            if (!inp.value.trim()) return;
+            activeGroupObj.posts.unshift(`Sen: ${inp.value.trim()}`);
+            inp.value = '';
+            renderGroupPosts();
+        }
+
+        function openLiveRoomModal(title, host) {
+            document.getElementById('lr-title').textContent = title;
+            document.getElementById('lr-host').textContent = `Moderatör: ${host}`;
+            document.getElementById('modal-liveroom').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        // ==================== SEKME 4: MESAJLAR & KAYBOLAN MESAJ ====================
+        function renderChats() {
+            const q = (document.getElementById('chat-search-input')?.value || '').toLowerCase();
+            const filtered = chatsData.filter(c => {
+                if (onlyCloseFriends && !c.closeFriend) return false;
+                return c.name.toLowerCase().includes(q);
+            });
+
+            // Üst Seri Barı
+            document.getElementById('matches-strip').innerHTML = chatsData.map(c => `
+                <button onclick="openChatById(${c.id})" class="flex flex-col items-center gap-1 shrink-0">
+                    <div class="relative">
+                        <img src="${c.avatar}" class="w-12 h-12 rounded-2xl object-cover border border-gold/60">
+                        <span class="absolute -bottom-1 -right-1 px-1 rounded bg-obsidian border border-amber-500/40 text-[9px] font-bold text-amber-300">🔥${c.streak}</span>
+                    </div>
+                    <span class="text-[10px] text-zinc-300 font-medium">${c.name.split(' ')[0]}</span>
+                </button>
+            `).join('');
+
+            // Sohbet Listesi
+            document.getElementById('chat-list-container').innerHTML = filtered.map(c => `
+                <div onclick="openChatById(${c.id})" class="p-3 rounded-3xl smoked-glass flex items-center justify-between cursor-pointer hover:border-gold/30 transition">
+                    <div class="flex items-center gap-3">
+                        <img src="${c.avatar}" class="w-12 h-12 rounded-2xl object-cover">
+                        <div>
+                            <div class="flex items-center gap-1.5">
+                                <h4 class="text-xs font-bold text-white">${c.name}</h4>
+                                <span class="text-[10px] text-gold">• ${c.approxDist}</span>
+                                ${c.closeFriend ? '<span class="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-400">★ Yakın</span>' : ''}
+                            </div>
+                            <p class="text-[11px] ${c.unread ? 'text-white font-semibold' : 'text-zinc-400'} mt-0.5 line-clamp-1">${c.lastMsg}</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-[10px] text-amber-400 font-bold">🔥 ${c.streak}g</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterChats() { renderChats(); }
+
+        function toggleCloseFriendsFilter() {
+            onlyCloseFriends = !onlyCloseFriends;
+            const btn = document.getElementById('close-friends-btn');
+            btn.className = onlyCloseFriends
+                ? 'px-3 py-2 rounded-2xl bg-emerald-500 text-obsidian text-[11px] font-extrabold shrink-0'
+                : 'px-3 py-2 rounded-2xl smoked-glass text-[11px] font-semibold text-emerald-400 border-emerald-500/30 shrink-0';
+            renderChats();
+        }
+
+        function openChatById(id) {
+            activeChatObj = chatsData.find(c => c.id === id);
+            activeChatObj.unread = false;
+            openChatWith(activeChatObj.name, activeChatObj.avatar, activeChatObj.approxDist);
+            renderChats();
+        }
+
+        function openChatWith(name, avatar, dist) {
+            if (!activeChatObj || activeChatObj.name !== name) {
+                activeChatObj = chatsData.find(c => c.name === name) || {
+                    name, avatar, approxDist: dist,
+                    messages: [{ from: 'peer', text: 'Merhaba! Eşleştiğimize çok sevindim ✨' }]
+                };
+            }
+            document.getElementById('chat-peer-name').textContent = name;
+            document.getElementById('chat-peer-avatar').src = avatar;
+            document.getElementById('chat-peer-status').textContent = `Çevrimiçi • ${dist} (Tam Konum Gizli)`;
+            renderActiveChatMessages();
+            document.getElementById('modal-chat').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function renderActiveChatMessages() {
+            const box = document.getElementById('chat-messages-box');
+            box.innerHTML = activeChatObj.messages.map(m => `
+                <div class="flex ${m.from === 'me' ? 'justify-end' : 'justify-start'}">
+                    <div class="max-w-[78%] px-3.5 py-2.5 rounded-2xl text-xs ${m.from === 'me' ? 'bg-gold text-obsidian font-semibold' : 'smoked-glass text-zinc-100'} ${m.ephemeral ? 'border border-roseLuxury' : ''}">
+                        ${m.ephemeral ? '<span class="block text-[9px] font-extrabold text-roseLuxury mb-0.5">⏱️ 10sn Kaybolan Mesaj</span>' : ''}
+                        ${m.text}
+                    </div>
+                </div>
+            `).join('');
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function toggleEphemeralMode() {
+            ephemeralEnabled = !ephemeralEnabled;
+            document.getElementById('ephemeral-label').textContent = ephemeralEnabled ? 'Kaybolan: 10sn Açık' : 'Kaybolan: Kapalı';
+            showToast(ephemeralEnabled ? '⏱️ Kaybolan mesaj modu açıldı (10 sn)' : 'Kaybolan mesaj modu kapatıldı');
+        }
+
+        function sendChatMessage() {
+            const inp = document.getElementById('chat-msg-input');
+            if (!inp.value.trim() || !activeChatObj) return;
+            const msgObj = { from: 'me', text: inp.value.trim(), ephemeral: ephemeralEnabled };
+            activeChatObj.messages.push(msgObj);
+            activeChatObj.lastMsg = inp.value.trim();
+            inp.value = '';
+            renderActiveChatMessages();
+            renderChats();
+
+            if (msgObj.ephemeral) {
+                setTimeout(() => {
+                    activeChatObj.messages = activeChatObj.messages.filter(m => m !== msgObj);
+                    renderActiveChatMessages();
+                    showToast('💨 Kaybolan mesaj silindi');
+                }, 10000);
+            }
+        }
+
+        function sendInstantPhoto() {
+            if (!activeChatObj) return;
+            const photoMsg = { from: 'me', text: '📸 Anlık Fotoğraf Gönderildi (Tek Görüntülemelik)', ephemeral: true };
+            activeChatObj.messages.push(photoMsg);
+            renderActiveChatMessages();
+            showToast('📸 Anlık foto gönderildi (10 sn sonra silinir)');
+            setTimeout(() => {
+                activeChatObj.messages = activeChatObj.messages.filter(m => m !== photoMsg);
+                renderActiveChatMessages();
+            }, 10000);
+        }
+
+        // ==================== PREMİUM (YAKIN GOLD) & KİMLER BEĞENDİ ====================
+        function openLikesModal() { openPremiumModal(); }
+        function openPremiumModal() {
+            renderLikesGrid();
+            document.getElementById('modal-premium').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function renderLikesGrid() {
+            const grid = document.getElementById('likes-preview-grid');
+            grid.innerHTML = discoverProfiles.map(p => `
+                <div class="relative aspect-square rounded-2xl overflow-hidden border border-gold/30">
+                    <img src="${p.img}" class="w-full h-full object-cover ${isGoldMember ? '' : 'blur-md scale-110'} transition duration-500">
+                    <span class="absolute bottom-1 inset-x-1 text-[9px] font-bold text-white text-center bg-black/60 rounded">${isGoldMember ? p.name.split(' ')[0] : '🔒'}</span>
+                </div>
+            `).join('');
+            document.getElementById('likes-lock-status').textContent = isGoldMember ? '✨ Gold ile Açık' : '🔒 Gold ile Netleştir';
+        }
+
+        function selectGoldPlan(plan, el) {
+            document.querySelectorAll('.plan-card').forEach(c => {
+                c.className = 'plan-card p-3.5 rounded-2xl smoked-glass border-white/10 flex items-center justify-between cursor-pointer';
+            });
+            el.className = 'plan-card p-3.5 rounded-2xl gold-border-glass flex items-center justify-between cursor-pointer shadow-gold-glow';
+        }
+
+        function activateGoldMembership() {
+            isGoldMember = true;
+            document.getElementById('gold-active-pill').classList.remove('hidden');
+            renderLikesGrid();
+            showToast('👑 YAKIN Gold aktif! Seni beğenenler netleştirildi.');
+            setTimeout(() => closeModal('modal-premium'), 900);
+        }
+
+        function togglePrivacySwitch(btn) {
+            const isOn = btn.classList.contains('justify-end');
+            if (isOn) {
+                btn.classList.remove('justify-end', 'bg-emerald-500', 'bg-gold');
+                btn.classList.add('justify-start', 'bg-zinc-700');
+            } else {
+                btn.classList.remove('justify-start', 'bg-zinc-700');
+                btn.classList.add('justify-end', 'bg-emerald-500');
+            }
+            showToast('Gizlilik ayarı güncellendi 🛡️');
+        }
+    </script>
+</body>
+</html>
+```
